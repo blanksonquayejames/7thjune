@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Premium e-commerce store with the best products at amazing prices.">
 
-    <title>{{ config('app.name', 'ShopVue') }} - @yield('title', 'Premium Online Store')</title>
+    <title>{{ config('app.name', '7th June') }} - @yield('title', 'Premium Online Store')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -19,16 +19,16 @@
 
     <style>
         :root {
-            --primary: #6c5ce7;
-            --primary-dark: #5a4bd1;
-            --secondary: #00cec9;
-            --accent: #fd79a8;
-            --dark: #2d3436;
-            --light: #f8f9fa;
-            --gray: #636e72;
-            --success: #00b894;
-            --warning: #fdcb6e;
-            --danger: #e17055;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #3b82f6;
+            --accent: #60a5fa;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
         }
 
         * { font-family: 'Inter', sans-serif; }
@@ -45,13 +45,12 @@
         .navbar-brand-custom {
             font-weight: 800;
             font-size: 1.5rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: #ffffff;
+            text-decoration: none;
         }
 
         .nav-custom {
-            background: rgba(255,255,255,0.95);
+            background: #2563EB;
             backdrop-filter: blur(20px);
             box-shadow: 0 1px 20px rgba(0,0,0,0.06);
             position: sticky;
@@ -62,13 +61,13 @@
 
         .nav-custom .nav-link {
             font-weight: 500;
-            color: var(--gray);
+            color: rgba(255,255,255,0.8);
             transition: color 0.2s;
             position: relative;
         }
         .nav-custom .nav-link:hover,
         .nav-custom .nav-link.active {
-            color: var(--primary);
+            color: #ffffff;
         }
         .nav-custom .nav-link.active::after {
             content: '';
@@ -78,7 +77,7 @@
             transform: translateX(-50%);
             width: 20px;
             height: 3px;
-            background: var(--primary);
+            background: #ffffff;
             border-radius: 2px;
         }
 
@@ -103,16 +102,16 @@
             padding: 10px 24px;
             border-radius: 12px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(108,92,231,0.3);
+            box-shadow: 0 4px 15px rgba(37,99,235,0.3);
         }
         .btn-primary-custom:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(108,92,231,0.4);
+            box-shadow: 0 8px 25px rgba(37,99,235,0.4);
             color: #fff;
         }
 
         .btn-secondary-custom {
-            background: rgba(108,92,231,0.1);
+            background: rgba(37,99,235,0.1);
             border: none;
             color: var(--primary);
             font-weight: 600;
@@ -121,21 +120,35 @@
             transition: all 0.3s ease;
         }
         .btn-secondary-custom:hover {
-            background: rgba(108,92,231,0.2);
+            background: rgba(37,99,235,0.2);
             color: var(--primary-dark);
         }
 
-        .btn-accent {
-            background: linear-gradient(135deg, var(--accent), #e84393);
+        .btn-add-to-cart {
+            background: #F59E0B;
             border: none;
             color: #fff;
             font-weight: 600;
             border-radius: 12px;
             transition: all 0.3s ease;
         }
-        .btn-accent:hover {
+        .btn-add-to-cart:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(253,121,168,0.4);
+            box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+            color: #fff;
+        }
+
+        .btn-buy-now {
+            background: #10B981;
+            border: none;
+            color: #fff;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        .btn-buy-now:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
             color: #fff;
         }
 
@@ -182,7 +195,7 @@
 
         /* ── Hero ── */
         .hero-section {
-            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 50%, #00cec9 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #60a5fa 100%);
             padding: 80px 0;
             position: relative;
             overflow: hidden;
@@ -235,12 +248,12 @@
             border-color: var(--primary);
             color: #fff;
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(108,92,231,0.3);
+            box-shadow: 0 4px 15px rgba(37,99,235,0.3);
         }
 
         /* ── Footer ── */
         .footer-custom {
-            background: linear-gradient(135deg, #2d3436 0%, #000 100%);
+            background: #111827;
             color: rgba(255,255,255,0.7);
             padding: 48px 0 24px;
             margin-top: auto;
@@ -308,7 +321,7 @@
         }
         .form-control-custom:focus {
             border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(108,92,231,0.15);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
         }
 
         /* ── Placeholder product image ── */
@@ -324,7 +337,7 @@
 
         /* ── Page header ── */
         .page-header {
-            background: linear-gradient(135deg, var(--primary), #a29bfe);
+            background: linear-gradient(135deg, var(--primary), #60a5fa);
             padding: 40px 0;
             color: #fff;
             margin-bottom: 32px;
@@ -369,6 +382,66 @@
             .hero-section h1 { font-size: 2rem; }
             .hero-section { padding: 50px 0; }
         }
+
+        /* ── Dark Mode ── */
+        body.dark-mode { 
+            background: #121212; 
+            color: #e0e0e0; 
+            --bs-body-color: #e0e0e0;
+            --bs-heading-color: #ffffff;
+        }
+        body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, 
+        body.dark-mode h4, body.dark-mode h5, body.dark-mode h6,
+        body.dark-mode .h1, body.dark-mode .h2, body.dark-mode .h3, 
+        body.dark-mode .h4, body.dark-mode .h5, body.dark-mode .h6 {
+            color: #ffffff !important;
+        }
+        body.dark-mode .text-dark { color: #f8f9fa !important; }
+        body.dark-mode .text-muted { color: #adb5bd !important; }
+        body.dark-mode a.text-dark:hover, body.dark-mode a.text-dark:focus { color: #e9ecef !important; }
+        
+        body.dark-mode .bg-white { background-color: #121212 !important; }
+        body.dark-mode .bg-light { background-color: #1e1e1e !important; }
+        
+        body.dark-mode .nav-custom {
+            background: rgba(18, 18, 18, 0.95);
+            border-bottom-color: rgba(255,255,255,0.1);
+        }
+        body.dark-mode .nav-custom .nav-link { color: #b2bec3; }
+        body.dark-mode .nav-custom .nav-link:hover,
+        body.dark-mode .nav-custom .nav-link.active { color: var(--primary); }
+        body.dark-mode .card-custom {
+            background: #1e1e1e;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+            color: #e0e0e0;
+        }
+        body.dark-mode .card-custom .card-title,
+        body.dark-mode .card-custom .card-text {
+            color: #e0e0e0;
+        }
+        body.dark-mode .category-pill {
+            background: #1e1e1e; border-color: #333; color: #b2bec3;
+        }
+        body.dark-mode .category-pill:hover,
+        body.dark-mode .category-pill.active { background: var(--primary); border-color: var(--primary); color: #fff; }
+        body.dark-mode .form-control-custom,
+        body.dark-mode .form-control {
+            background: #2d2d2d; border-color: #444; color: #e0e0e0;
+        }
+        body.dark-mode .form-control-custom:focus,
+        body.dark-mode .form-control:focus { background: #333; color: #fff; border-color: var(--primary); }
+        body.dark-mode .dropdown-menu { background-color: #1e1e1e; border: 1px solid rgba(255,255,255,0.1); }
+        body.dark-mode .dropdown-item { color: #e0e0e0; }
+        body.dark-mode .dropdown-item:hover { background-color: #2d2d2d; color: var(--primary); }
+        body.dark-mode .dropdown-divider { border-top-color: rgba(255,255,255,0.1); }
+        body.dark-mode .table, body.dark-mode .table-custom { color: #e0e0e0; }
+        body.dark-mode .table-custom td { border-bottom-color: #333; background-color: transparent; }
+        body.dark-mode .page-header { background: linear-gradient(135deg, #1a1a2e, #16213e); }
+        body.dark-mode .placeholder-img { background: linear-gradient(135deg, #2d3436, #636e72); }
+        body.dark-mode .footer-custom { border-top: 1px solid rgba(255,255,255,0.05); }
+        
+        body.dark-mode .product-tabs .nav-link:hover { color: #ffffff !important; }
+        body.dark-mode .product-tabs .nav-link.active { color: #ffffff !important; border-bottom-color: #ffffff !important; }
     </style>
     @stack('styles')
 </head>
@@ -376,8 +449,9 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg nav-custom py-3">
         <div class="container">
-            <a class="navbar-brand navbar-brand-custom" href="{{ route('home') }}">
-                <i class="bi bi-bag-heart-fill me-2"></i>ShopVue
+            <a class="navbar-brand navbar-brand-custom d-flex align-items-center" href="{{ route('home') }}">
+                <img src="{{ asset('images/logo.png') }}" alt="7th June Logo" height="40" class="me-2" style="object-fit: contain;">
+                7th June
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -397,8 +471,14 @@
                     @endauth
                 </ul>
                 <ul class="navbar-nav align-items-center">
+                    <!-- Theme Toggle -->
                     <li class="nav-item me-3">
-                        <a class="nav-link position-relative" href="{{ route('cart.index') }}">
+                        <button id="theme-toggle" class="btn btn-link nav-link px-2 py-1" style="box-shadow: none;" aria-label="Toggle Dark Mode">
+                            <i class="bi bi-moon-fill fs-5" id="theme-icon"></i>
+                        </button>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link position-relative text-white" href="{{ route('cart.index') }}">
                             <i class="bi bi-cart3 fs-5"></i>
                             @php
                                 $cartCount = 0;
@@ -416,14 +496,14 @@
                     </li>
                     @guest
                     <li class="nav-item">
-                        <a class="btn btn-secondary-custom btn-sm me-2" href="{{ route('login') }}">Login</a>
+                        <a class="btn btn-secondary-custom btn-sm me-2 bg-white text-primary" href="{{ route('login') }}">Login</a>
                     </li>
                     <li class="nav-item">
                         <a class="btn btn-primary-custom btn-sm" href="{{ route('register') }}">Register</a>
                     </li>
                     @else
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-person-circle me-1"></i>{{ Auth::user()->name }}
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:12px">
@@ -472,7 +552,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 mb-4">
-                    <h6><i class="bi bi-bag-heart-fill me-2"></i>ShopVue</h6>
+                    <h6 class="align-items-center d-flex">
+                        <img src="{{ asset('images/logo.png') }}" alt="7th June Logo" height="30" class="me-2" style="object-fit: contain;">
+                        7th June
+                    </h6>
                     <p class="small">Your premium online shopping destination. Discover amazing products at unbeatable prices.</p>
                 </div>
                 <div class="col-lg-2 col-6 mb-4">
@@ -494,7 +577,7 @@
                 </div>
                 <div class="col-lg-4 mb-4">
                     <h6>Contact</h6>
-                    <p class="small mb-1"><i class="bi bi-envelope me-2"></i>support@shopvue.com</p>
+                    <p class="small mb-1"><i class="bi bi-envelope me-2"></i>support@7thjune.com</p>
                     <p class="small mb-1"><i class="bi bi-telephone me-2"></i>+1 (555) 123-4567</p>
                     <div class="mt-3">
                         <a href="#" class="me-3 fs-5"><i class="bi bi-facebook"></i></a>
@@ -504,12 +587,40 @@
                 </div>
             </div>
             <hr style="border-color: rgba(255,255,255,0.1)">
-            <p class="text-center small mb-0">&copy; {{ date('Y') }} ShopVue. All rights reserved.</p>
+            <p class="text-center small mb-0">&copy; {{ date('Y') }} 7th June. All rights reserved.</p>
         </div>
     </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const themeToggle = document.getElementById('theme-toggle');
+            const themeIcon = document.getElementById('theme-icon');
+            const body = document.body;
+
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+                body.classList.add('dark-mode');
+                if(themeIcon) { themeIcon.classList.replace('bi-moon-fill', 'bi-sun-fill'); }
+            }
+
+            if(themeToggle) {
+                themeToggle.addEventListener('click', () => {
+                    body.classList.toggle('dark-mode');
+                    if (body.classList.contains('dark-mode')) {
+                        localStorage.setItem('theme', 'dark');
+                        themeIcon.classList.replace('bi-moon-fill', 'bi-sun-fill');
+                    } else {
+                        localStorage.setItem('theme', 'light');
+                        themeIcon.classList.replace('bi-sun-fill', 'bi-moon-fill');
+                    }
+                });
+            }
+        });
+    </script>
     @stack('scripts')
 </body>
 </html>

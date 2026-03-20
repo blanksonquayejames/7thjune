@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>Admin - {{ config('app.name', 'ShopVue') }}</title>
+    <title>Admin - {{ config('app.name', '7TH JUNE') }}</title>
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700,800&display=swap" rel="stylesheet" />
@@ -200,8 +200,9 @@
 <body>
     <!-- Sidebar -->
     <aside class="admin-sidebar" id="adminSidebar">
-        <div class="sidebar-brand">
-            <i class="bi bi-bag-heart-fill me-2"></i>ShopVue
+        <div class="sidebar-brand d-flex align-items-center">
+            <img src="{{ asset('images/logo.png') }}" alt="7th June Logo" height="30" class="me-2" style="object-fit: contain;">
+            7TH JUNE
         </div>
         <nav class="sidebar-nav">
             <div class="nav-label">Main</div>

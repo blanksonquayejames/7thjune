@@ -8,9 +8,9 @@
             <div class="card card-custom">
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
-                        <i class="bi bi-person-circle fs-1 text-primary"></i>
+                        <img src="{{ asset('images/logo.png') }}" alt="7th June Logo" height="60" class="mb-2" style="object-fit: contain;">
                         <h4 class="fw-bold mt-2">Welcome Back</h4>
-                        <p class="text-muted small">Login to your ShopVue account</p>
+                        <p class="text-muted small">Login to your 7TH JUNE account</p>
                     </div>
 
                     @if(session('status'))

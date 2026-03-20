@@ -66,8 +66,11 @@
             @if($product->stock > 0)
             <form action="{{ route('cart.add', $product->id) }}" method="POST" class="d-flex gap-3 mb-4">
                 @csrf
-                <button type="submit" class="btn btn-primary-custom btn-lg px-5">
+                <button type="submit" class="btn btn-add-to-cart text-white btn-lg px-4">
                     <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                </button>
+                <button type="button" class="btn btn-buy-now text-white btn-lg px-4" onclick="this.form.submit()">
+                    <i class="bi bi-bag-check me-2"></i>Buy Now
                 </button>
             </form>
             @endif

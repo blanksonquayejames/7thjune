@@ -5,7 +5,7 @@
 <style>
     /* ── Hero Carousel ── */
     .hero-carousel {
-        background: #f8f9fa;
+        background: #DBEAFE;
         overflow: hidden;
     }
     .hero-carousel .carousel-item {
@@ -346,7 +346,11 @@
             <div class="col-4 col-md-2">
                 <a href="{{ route('products.index', ['category' => $category->slug]) }}" class="category-icon-item">
                     <div class="category-icon-circle">
-                        <i class="bi {{ $categoryIcons[$category->slug] ?? 'bi-grid' }}"></i>
+                        @if($category->image)
+                            <img src="{{ asset('storage/' . $category->image) }}" alt="{{ $category->name }}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                        @else
+                            <i class="bi {{ $categoryIcons[$category->slug] ?? 'bi-grid' }}"></i>
+                        @endif
                     </div>
                     <h6>{{ $category->name }}</h6>
                     <small>{{ $category->products_count }} products</small>
@@ -440,7 +444,7 @@
 
 
 <!-- ═══════════ FEATURED PRODUCTS ═══════════ -->
-<section class="py-5">
+<section class="py-5" style="background-color: #F9FAFB;">
     <div class="container">
         <div class="d-flex justify-content-between align-items-center mb-5">
             <div>
@@ -486,7 +490,7 @@
                             @if($product->stock > 0)
                             <form action="{{ route('cart.add', $product->id) }}" method="POST">
                                 @csrf
-                                <button type="submit" class="btn btn-accent btn-sm px-3">
+                                <button type="submit" class="btn btn-add-to-cart btn-sm px-3">
                                     <i class="bi bi-cart-plus"></i>
                                 </button>
                             </form>
