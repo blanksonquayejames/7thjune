@@ -413,6 +413,9 @@
                                     @if($product->is_hot)
                                         <span class="badge-hot">Hot</span>
                                     @endif
+                                    @if($product->hasActiveDiscount())
+                                        <span class="badge-hot" style="background:#ef4444">-{{ $product->discount_percentage }}%</span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="card-body px-3 py-3">
@@ -429,7 +432,18 @@
                                     <i class="bi bi-star-fill"></i>
                                 </div>
                                 @endif
-                                <span class="product-price" style="font-size:1rem">${{ number_format($product->price, 2) }}</span>
+                                @if($product->hasActiveDiscount())
+                                    <span class="text-decoration-line-through text-muted" style="font-size:0.8rem">₵{{ number_format($product->price, 2) }}</span>
+                                    <span class="product-price" style="font-size:1rem">₵{{ number_format($product->discounted_price, 2) }}</span>
+                                    @if($product->discount_end)
+                                    <div class="discount-countdown mt-1" data-countdown-end="{{ $product->discount_end->toIso8601String() }}">
+                                        <i class="bi bi-clock"></i>
+                                        <span class="cd-compact-text">Loading...</span>
+                                    </div>
+                                    @endif
+                                @else
+                                    <span class="product-price" style="font-size:1rem">₵{{ number_format($product->price, 2) }}</span>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -475,7 +489,9 @@
                             @if($product->is_hot)
                                 <span class="badge-hot">Hot</span>
                             @endif
-                            @if($product->created_at->diffInDays(now()) < 7)
+                            @if($product->hasActiveDiscount())
+                                <span class="badge-hot" style="background:#ef4444">-{{ $product->discount_percentage }}%</span>
+                            @elseif($product->created_at->diffInDays(now()) < 7)
                                 <span class="badge-new">New</span>
                             @endif
                         </div>
@@ -486,7 +502,12 @@
                             <a href="{{ route('products.show', $product->slug) }}" class="text-decoration-none text-dark">{{ $product->name }}</a>
                         </h6>
                         <div class="mt-auto d-flex justify-content-between align-items-center">
-                            <span class="product-price">${{ number_format($product->price, 2) }}</span>
+                            @if($product->hasActiveDiscount())
+                                <span class="text-decoration-line-through text-muted small">₵{{ number_format($product->price, 2) }}</span>
+                                <span class="product-price">₵{{ number_format($product->discounted_price, 2) }}</span>
+                            @else
+                                <span class="product-price">₵{{ number_format($product->price, 2) }}</span>
+                            @endif
                             @if($product->stock > 0)
                             <form action="{{ route('cart.add', $product->id) }}" method="POST">
                                 @csrf
@@ -496,6 +517,12 @@
                             </form>
                             @endif
                         </div>
+                        @if($product->hasActiveDiscount() && $product->discount_end)
+                        <div class="discount-countdown mt-2" data-countdown-end="{{ $product->discount_end->toIso8601String() }}">
+                            <i class="bi bi-clock"></i>
+                            <span class="cd-compact-text">Loading...</span>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>

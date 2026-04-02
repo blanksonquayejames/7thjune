@@ -442,6 +442,79 @@
         
         body.dark-mode .product-tabs .nav-link:hover { color: #ffffff !important; }
         body.dark-mode .product-tabs .nav-link.active { color: #ffffff !important; border-bottom-color: #ffffff !important; }
+
+        /* ── Discount Countdown ── */
+        .discount-countdown {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: #fff;
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            animation: countdown-pulse 2s ease-in-out infinite;
+        }
+        .discount-countdown i {
+            font-size: 0.7rem;
+        }
+        .discount-countdown-lg {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #fef2f2, #fee2e2);
+            border: 1px solid #fecaca;
+            padding: 12px 20px;
+            border-radius: 12px;
+            margin-top: 8px;
+            animation: countdown-pulse 2s ease-in-out infinite;
+        }
+        .discount-countdown-lg .cd-label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #dc2626;
+        }
+        .discount-countdown-lg .cd-timer {
+            display: flex;
+            gap: 6px;
+        }
+        .cd-unit {
+            text-align: center;
+            background: #fff;
+            border-radius: 8px;
+            padding: 4px 8px;
+            min-width: 42px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .cd-unit .cd-value {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #dc2626;
+            line-height: 1.2;
+        }
+        .cd-unit .cd-text {
+            display: block;
+            font-size: 0.55rem;
+            font-weight: 600;
+            color: #9ca3af;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        @keyframes countdown-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
+        body.dark-mode .discount-countdown-lg {
+            background: linear-gradient(135deg, #2d1a1a, #3d1f1f);
+            border-color: #5c2626;
+        }
+        body.dark-mode .cd-unit {
+            background: #1e1e1e;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
     </style>
     @stack('styles')
 </head>
@@ -620,6 +693,47 @@
                 });
             }
         });
+    </script>
+    <script>
+    // ── Discount Countdown Timer Engine ──
+    (function() {
+        function updateCountdowns() {
+            document.querySelectorAll('[data-countdown-end]').forEach(el => {
+                const endTime = new Date(el.dataset.countdownEnd).getTime();
+                const now = Date.now();
+                const diff = endTime - now;
+
+                if (diff <= 0) {
+                    el.innerHTML = '<i class="bi bi-x-circle me-1"></i>Sale ended';
+                    el.style.opacity = '0.6';
+                    return;
+                }
+
+                const days = Math.floor(diff / 86400000);
+                const hours = Math.floor((diff % 86400000) / 3600000);
+                const mins = Math.floor((diff % 3600000) / 60000);
+                const secs = Math.floor((diff % 60000) / 1000);
+
+                // Check if it's the large format
+                if (el.classList.contains('discount-countdown-lg')) {
+                    el.querySelector('.cd-days').textContent = String(days).padStart(2, '0');
+                    el.querySelector('.cd-hours').textContent = String(hours).padStart(2, '0');
+                    el.querySelector('.cd-mins').textContent = String(mins).padStart(2, '0');
+                    el.querySelector('.cd-secs').textContent = String(secs).padStart(2, '0');
+                } else {
+                    // Compact format
+                    let text = '';
+                    if (days > 0) text += days + 'd ';
+                    text += String(hours).padStart(2, '0') + ':' + String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+                    const icon = el.querySelector('i');
+                    const span = el.querySelector('.cd-compact-text');
+                    if (span) span.textContent = text;
+                }
+            });
+        }
+        updateCountdowns();
+        setInterval(updateCountdowns, 1000);
+    })();
     </script>
     @stack('scripts')
 </body>

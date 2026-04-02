@@ -50,7 +50,7 @@
                     <i class="bi bi-currency-dollar"></i>
                 </div>
                 <div>
-                    <div class="stat-value">${{ number_format($stats['totalRevenue'], 2) }}</div>
+                    <div class="stat-value">₵{{ number_format($stats['totalRevenue'], 2) }}</div>
                     <small class="text-muted fw-semibold">Revenue</small>
                 </div>
             </div>
@@ -106,7 +106,7 @@
                             <tr>
                                 <td class="fw-bold">#{{ $order->id }}</td>
                                 <td>{{ $order->user->name ?? 'N/A' }}</td>
-                                <td>${{ number_format($order->total, 2) }}</td>
+                                <td>₵{{ number_format($order->total, 2) }}</td>
                                 <td><span class="status-badge status-{{ $order->status }}">{{ ucfirst($order->status) }}</span></td>
                                 <td>
                                     <a href="{{ route('admin.orders.show', $order) }}" class="btn btn-sm btn-light" style="border-radius:8px">

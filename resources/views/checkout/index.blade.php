@@ -40,7 +40,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary-custom btn-lg w-100 py-3">
-                            <i class="bi bi-check-circle me-2"></i>Place Order — ${{ number_format($total, 2) }}
+                            <i class="bi bi-check-circle me-2"></i>Place Order — ₵{{ number_format($total, 2) }}
                         </button>
                     </form>
                 </div>
@@ -66,14 +66,14 @@
                             <h6 class="mb-0 small fw-semibold">{{ $item->product->name }}</h6>
                             <small class="text-muted">Qty: {{ $item->quantity }}</small>
                         </div>
-                        <span class="fw-bold">${{ number_format($item->product->price * $item->quantity, 2) }}</span>
+                        <span class="fw-bold">₵{{ number_format($item->product->discounted_price * $item->quantity, 2) }}</span>
                     </div>
                     @endforeach
 
                     <hr>
                     <div class="d-flex justify-content-between mb-2">
                         <span class="text-muted">Subtotal</span>
-                        <span>${{ number_format($total, 2) }}</span>
+                        <span>₵{{ number_format($total, 2) }}</span>
                     </div>
                     <div class="d-flex justify-content-between mb-2">
                         <span class="text-muted">Shipping</span>
@@ -82,7 +82,7 @@
                     <hr>
                     <div class="d-flex justify-content-between">
                         <span class="fw-bold fs-5">Total</span>
-                        <span class="fw-bold fs-5 text-primary">${{ number_format($total, 2) }}</span>
+                        <span class="fw-bold fs-5 text-primary">₵{{ number_format($total, 2) }}</span>
                     </div>
                 </div>
             </div>

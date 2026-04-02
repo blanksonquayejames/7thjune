@@ -25,7 +25,7 @@
                     <tr>
                         <td class="fw-bold">#{{ $order->id }}</td>
                         <td>{{ $order->user->name ?? 'N/A' }}</td>
-                        <td class="fw-semibold">${{ number_format($order->total, 2) }}</td>
+                        <td class="fw-semibold">₵{{ number_format($order->total, 2) }}</td>
                         <td><span class="status-badge status-{{ $order->status }}">{{ ucfirst($order->status) }}</span></td>
                         <td>{{ $order->created_at->format('M d, Y') }}</td>
                         <td>

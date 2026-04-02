@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="col-md-4">
-                    <label class="form-label fw-semibold">Price ($)</label>
+                    <label class="form-label fw-semibold">Price (₵)</label>
                     <input type="number" step="0.01" name="price" class="form-control form-control-custom @error('price') is-invalid @enderror"
                            value="{{ old('price') }}" min="0" required>
                     @error('price')<div class="invalid-feedback">{{ $message }}</div>@enderror
@@ -68,6 +68,39 @@
                 </div>
             </div>
 
+            {{-- Discount Section --}}
+            <div class="mt-4 p-4 rounded-3" style="background:#fff7ed; border-left:4px solid #f59e0b">
+                <h6 class="fw-bold mb-3"><i class="bi bi-tag me-2 text-warning"></i>Product Discount <span class="text-muted fw-normal small">(optional)</span></h6>
+                <div class="row g-3">
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Discount (%)</label>
+                        <div class="input-group">
+                            <input type="number" step="0.01" name="discount_percentage"
+                                   class="form-control form-control-custom @error('discount_percentage') is-invalid @enderror"
+                                   value="{{ old('discount_percentage') }}" min="0" max="100"
+                                   placeholder="e.g. 15">
+                            <span class="input-group-text"><i class="bi bi-percent"></i></span>
+                        </div>
+                        @error('discount_percentage')<div class="invalid-feedback d-block">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">Start Date</label>
+                        <input type="datetime-local" name="discount_start"
+                               class="form-control form-control-custom @error('discount_start') is-invalid @enderror"
+                               value="{{ old('discount_start') }}">
+                        @error('discount_start')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label fw-semibold">End Date</label>
+                        <input type="datetime-local" name="discount_end"
+                               class="form-control form-control-custom @error('discount_end') is-invalid @enderror"
+                               value="{{ old('discount_end') }}">
+                        @error('discount_end')<div class="invalid-feedback">{{ $message }}</div>@enderror
+                    </div>
+                </div>
+                <small class="text-muted d-block mt-2"><i class="bi bi-info-circle me-1"></i>Leave dates empty for an always-active discount. Set end date for a limited-time sale.</small>
+            </div>
+
             <hr class="my-4">
             <button type="submit" class="btn btn-primary-custom px-4 py-2">
                 <i class="bi bi-check-lg me-2"></i>Create Product
@@ -76,3 +109,4 @@
     </div>
 </div>
 @endsection
+

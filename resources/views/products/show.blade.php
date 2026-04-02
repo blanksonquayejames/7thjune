@@ -48,8 +48,14 @@
                 <span class="ms-2 text-muted">({{ $reviewCount }} {{ Str::plural('review', $reviewCount) }})</span>
             </div>
 
-            <div class="d-flex align-items-center gap-3 mb-4">
-                <span class="product-price" style="font-size:2rem">${{ number_format($product->price, 2) }}</span>
+            <div class="d-flex align-items-center gap-3 mb-2">
+                @if($product->hasActiveDiscount())
+                    <span class="text-decoration-line-through text-muted" style="font-size:1.2rem">₵{{ number_format($product->price, 2) }}</span>
+                    <span class="product-price" style="font-size:2rem">₵{{ number_format($product->discounted_price, 2) }}</span>
+                    <span class="badge bg-danger rounded-pill px-3 py-2 ms-2">-{{ $product->discount_percentage }}% OFF</span>
+                @else
+                    <span class="product-price" style="font-size:2rem">₵{{ number_format($product->price, 2) }}</span>
+                @endif
                 @if($product->stock > 0)
                     <span class="badge bg-success-subtle text-success px-3 py-2 rounded-pill">
                         <i class="bi bi-check-circle me-1"></i>In Stock ({{ $product->stock }})
@@ -60,6 +66,32 @@
                     </span>
                 @endif
             </div>
+
+            @if($product->hasActiveDiscount() && $product->discount_end)
+            <div class="discount-countdown-lg mb-4" data-countdown-end="{{ $product->discount_end->toIso8601String() }}">
+                <div>
+                    <span class="cd-label"><i class="bi bi-clock-history me-1"></i>Sale ends in</span>
+                </div>
+                <div class="cd-timer">
+                    <div class="cd-unit">
+                        <span class="cd-value cd-days">00</span>
+                        <span class="cd-text">Days</span>
+                    </div>
+                    <div class="cd-unit">
+                        <span class="cd-value cd-hours">00</span>
+                        <span class="cd-text">Hrs</span>
+                    </div>
+                    <div class="cd-unit">
+                        <span class="cd-value cd-mins">00</span>
+                        <span class="cd-text">Min</span>
+                    </div>
+                    <div class="cd-unit">
+                        <span class="cd-value cd-secs">00</span>
+                        <span class="cd-text">Sec</span>
+                    </div>
+                </div>
+            </div>
+            @endif
 
             <p class="text-muted lh-lg mb-4">{{ $product->description }}</p>
 
@@ -206,7 +238,12 @@
                     <div class="card-body">
                         <small class="text-muted">{{ $related->category->name ?? '' }}</small>
                         <h6 class="mt-1"><a href="{{ route('products.show', $related->slug) }}" class="text-decoration-none text-dark">{{ $related->name }}</a></h6>
-                        <span class="product-price">${{ number_format($related->price, 2) }}</span>
+                        @if($related->hasActiveDiscount())
+                            <span class="text-decoration-line-through text-muted small">₵{{ number_format($related->price, 2) }}</span>
+                            <span class="product-price">₵{{ number_format($related->discounted_price, 2) }}</span>
+                        @else
+                            <span class="product-price">₵{{ number_format($related->price, 2) }}</span>
+                        @endif
                     </div>
                 </div>
             </div>

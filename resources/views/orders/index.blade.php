@@ -39,7 +39,7 @@
                                 <td class="fw-bold">#{{ $order->id }}</td>
                                 <td>{{ $order->created_at->format('M d, Y') }}</td>
                                 <td>{{ $order->items->count() }} item(s)</td>
-                                <td class="fw-bold">${{ number_format($order->total, 2) }}</td>
+                                <td class="fw-bold">₵{{ number_format($order->total, 2) }}</td>
                                 <td>
                                     <span class="status-badge status-{{ $order->status }}">{{ ucfirst($order->status) }}</span>
                                 </td>

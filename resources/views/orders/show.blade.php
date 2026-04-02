@@ -31,9 +31,9 @@
                         @endif
                         <div class="flex-grow-1">
                             <h6 class="mb-0 fw-semibold">{{ $item->product->name ?? 'Product Unavailable' }}</h6>
-                            <small class="text-muted">Qty: {{ $item->quantity }} × ${{ number_format($item->price, 2) }}</small>
+                            <small class="text-muted">Qty: {{ $item->quantity }} × ₵{{ number_format($item->price, 2) }}</small>
                         </div>
-                        <span class="fw-bold">${{ number_format($item->price * $item->quantity, 2) }}</span>
+                        <span class="fw-bold">₵{{ number_format($item->price * $item->quantity, 2) }}</span>
                     </div>
                     @endforeach
 
@@ -41,7 +41,7 @@
                     <div class="d-flex justify-content-end">
                         <div class="text-end">
                             <span class="text-muted">Total:</span>
-                            <span class="fw-bold fs-4 text-primary ms-2">${{ number_format($order->total, 2) }}</span>
+                            <span class="fw-bold fs-4 text-primary ms-2">₵{{ number_format($order->total, 2) }}</span>
                         </div>
                     </div>
                 </div>

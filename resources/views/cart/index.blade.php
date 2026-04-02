@@ -53,7 +53,14 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>${{ number_format($item->product->price, 2) }}</td>
+                                        <td>
+                                            @if($item->product->hasActiveDiscount())
+                                                <span class="text-decoration-line-through text-muted small d-block">₵{{ number_format($item->product->price, 2) }}</span>
+                                                <span class="text-success fw-semibold">₵{{ number_format($item->product->discounted_price, 2) }}</span>
+                                            @else
+                                                ₵{{ number_format($item->product->price, 2) }}
+                                            @endif
+                                        </td>
                                         <td>
                                             <form action="{{ route('cart.update', $item->id) }}" method="POST" class="d-flex align-items-center gap-2" style="width:120px">
                                                 @csrf
@@ -62,7 +69,7 @@
                                                        class="form-control form-control-sm text-center" style="border-radius:8px" onchange="this.form.submit()">
                                             </form>
                                         </td>
-                                        <td class="fw-bold">${{ number_format($item->product->price * $item->quantity, 2) }}</td>
+                                        <td class="fw-bold">₵{{ number_format($item->product->discounted_price * $item->quantity, 2) }}</td>
                                         <td>
                                             <form action="{{ route('cart.remove', $item->id) }}" method="POST">
                                                 @csrf
@@ -88,7 +95,7 @@
                         <h5 class="fw-bold mb-4">Order Summary</h5>
                         <div class="d-flex justify-content-between mb-2">
                             <span class="text-muted">Subtotal</span>
-                            <span class="fw-semibold">${{ number_format($total, 2) }}</span>
+                            <span class="fw-semibold">₵{{ number_format($total, 2) }}</span>
                         </div>
                         <div class="d-flex justify-content-between mb-2">
                             <span class="text-muted">Shipping</span>
@@ -97,7 +104,7 @@
                         <hr>
                         <div class="d-flex justify-content-between mb-4">
                             <span class="fw-bold fs-5">Total</span>
-                            <span class="fw-bold fs-5 text-primary">${{ number_format($total, 2) }}</span>
+                            <span class="fw-bold fs-5 text-primary">₵{{ number_format($total, 2) }}</span>
                         </div>
 
                         @auth

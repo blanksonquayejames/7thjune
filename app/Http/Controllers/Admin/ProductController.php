@@ -30,6 +30,9 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
+            'discount_percentage' => 'nullable|numeric|min:0|max:100',
+            'discount_start' => 'nullable|date',
+            'discount_end' => 'nullable|date|after_or_equal:discount_start',
             'stock' => 'required|integer|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_active' => 'nullable|boolean',
@@ -38,6 +41,9 @@ class ProductController extends Controller
         $data = $request->except('image');
         $data['slug'] = Str::slug($request->name);
         $data['is_active'] = $request->has('is_active');
+        $data['discount_percentage'] = $request->discount_percentage ?: null;
+        $data['discount_start'] = $request->discount_start ?: null;
+        $data['discount_end'] = $request->discount_end ?: null;
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');
@@ -62,6 +68,9 @@ class ProductController extends Controller
             'category_id' => 'required|exists:categories,id',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
+            'discount_percentage' => 'nullable|numeric|min:0|max:100',
+            'discount_start' => 'nullable|date',
+            'discount_end' => 'nullable|date|after_or_equal:discount_start',
             'stock' => 'required|integer|min:0',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
             'is_active' => 'nullable|boolean',
@@ -70,6 +79,9 @@ class ProductController extends Controller
         $data = $request->except('image');
         $data['slug'] = Str::slug($request->name);
         $data['is_active'] = $request->has('is_active');
+        $data['discount_percentage'] = $request->discount_percentage ?: null;
+        $data['discount_start'] = $request->discount_start ?: null;
+        $data['discount_end'] = $request->discount_end ?: null;
 
         if ($request->hasFile('image')) {
             // Delete old image

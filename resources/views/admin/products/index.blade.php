@@ -38,7 +38,15 @@
                         </td>
                         <td class="fw-semibold">{{ $product->name }}</td>
                         <td><span class="badge bg-light text-dark">{{ $product->category->name ?? 'N/A' }}</span></td>
-                        <td>${{ number_format($product->price, 2) }}</td>
+                        <td>
+                            @if($product->hasActiveDiscount())
+                                <span class="text-decoration-line-through text-muted small">₵{{ number_format($product->price, 2) }}</span>
+                                <span class="fw-bold text-success">₵{{ number_format($product->discounted_price, 2) }}</span>
+                                <span class="badge bg-warning-subtle text-warning ms-1" style="font-size:0.65rem">-{{ $product->discount_percentage }}%</span>
+                            @else
+                                ₵{{ number_format($product->price, 2) }}
+                            @endif
+                        </td>
                         <td>
                             @if($product->stock > 10)
                                 <span class="text-success fw-semibold">{{ $product->stock }}</span>
