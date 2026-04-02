@@ -34,6 +34,9 @@ class CartController extends Controller
         $product = Product::findOrFail($productId);
 
         if ($product->stock < 1) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['status' => 'error', 'message' => 'Product is out of stock.'], 422);
+            }
             return back()->with('error', 'Product is out of stock.');
         }
 
@@ -45,6 +48,9 @@ class CartController extends Controller
 
         if ($cartItem) {
             if ($cartItem->quantity + 1 > $product->stock) {
+                if ($request->ajax() || $request->wantsJson()) {
+                    return response()->json(['status' => 'error', 'message' => 'Not enough stock available.'], 422);
+                }
                 return back()->with('error', 'Not enough stock available.');
             }
             $cartItem->increment('quantity');
@@ -56,7 +62,48 @@ class CartController extends Controller
             ]);
         }
 
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['status' => 'success', 'message' => 'Product added to cart!']);
+        }
+
         return back()->with('success', 'Product added to cart!');
+    }
+
+    public function buyNow(Request $request, $productId)
+    {
+        $product = Product::findOrFail($productId);
+
+        if ($product->stock < 1) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['status' => 'error', 'message' => 'Product is out of stock.'], 422);
+            }
+            return back()->with('error', 'Product is out of stock.');
+        }
+
+        $cart = $this->getCart();
+
+        $cartItem = CartItem::where('cart_id', $cart->id)
+            ->where('product_id', $productId)
+            ->first();
+
+        if ($cartItem) {
+            if ($request->ajax() || $request->wantsJson()) {
+                return response()->json(['status' => 'success', 'message' => 'Product already in cart. Redirecting to checkout.', 'redirect' => route('checkout.index')]);
+            }
+            return redirect()->route('checkout.index')->with('success', 'Product already in cart. Redirecting to checkout.');
+        }
+
+        CartItem::create([
+            'cart_id' => $cart->id,
+            'product_id' => $productId,
+            'quantity' => 1,
+        ]);
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json(['status' => 'success', 'message' => 'Product added to cart. Redirecting to checkout.', 'redirect' => route('checkout.index')]);
+        }
+
+        return redirect()->route('checkout.index')->with('success', 'Product added to cart. Redirecting to checkout.');
     }
 
     public function update(Request $request, $cartItemId)

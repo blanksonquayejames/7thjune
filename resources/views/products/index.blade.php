@@ -71,7 +71,7 @@
                 <div class="row g-4">
                     @foreach($products as $product)
                     <div class="col-md-4 col-6">
-                        <div class="card card-custom h-100">
+                        <div class="card card-custom h-100 product-clickable-card" data-product-url="{{ route('products.show', $product->slug) }}">
                             <div class="card-img-wrapper">
                                 @if($product->image)
                                     <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
@@ -100,7 +100,7 @@
                                         <span class="product-price">₵{{ number_format($product->price, 2) }}</span>
                                     @endif
                                     @if($product->stock > 0)
-                                    <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                                    <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form">
                                         @csrf
                                         <button type="submit" class="btn btn-accent btn-sm px-3">
                                             <i class="bi bi-cart-plus"></i>

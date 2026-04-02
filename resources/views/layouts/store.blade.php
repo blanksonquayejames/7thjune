@@ -692,6 +692,109 @@
                     }
                 });
             }
+
+            // Hide flash alerts after 5 seconds
+            document.querySelectorAll('.alert').forEach(alert => {
+                setTimeout(() => {
+                    if (alert.classList.contains('show')) {
+                        let bsAlert = new bootstrap.Alert(alert);
+                        bsAlert.close();
+                    }
+                }, 5000);
+            });
+
+            // Hero carousel fallback init (ensures 5s auto-slide even if markup attributes fail)
+            const heroCarousel = document.getElementById('heroCarousel');
+            if (heroCarousel && window.bootstrap && bootstrap.Carousel) {
+                new bootstrap.Carousel(heroCarousel, {
+                    interval: 5000,
+                    ride: 'carousel',
+                    pause: 'hover',
+                    wrap: true,
+                    touch: true
+                });
+            }
+
+            // Clickable product cards
+            document.querySelectorAll('.product-clickable-card').forEach(card => {
+                card.style.cursor = 'pointer';
+                card.addEventListener('click', (event) => {
+                    if (event.target.closest('button') || event.target.closest('a') || event.target.closest('form')) {
+                        return; // preserve inner actions
+                    }
+                    const href = card.dataset.productUrl;
+                    if (href) window.location.href = href;
+                });
+            });
+
+            // AJAX add-to-cart and buy-now forms
+            document.querySelectorAll('form.ajax-cart-form').forEach(form => {
+                form.addEventListener('submit', async (event) => {
+                    event.preventDefault();
+                    const submitBtn = form.querySelector('button[type="submit"]');
+                    const actionUrl = form.action;
+                    const method = (form.method || 'POST').toUpperCase();
+
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.classList.add('opacity-75');
+                    }
+
+                    try {
+                        const response = await fetch(actionUrl, {
+                            method,
+                            headers: {
+                                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                                'Accept': 'application/json',
+                            },
+                            body: new FormData(form),
+                        });
+
+                        const data = await response.json();
+                        const status = response.ok ? 'success' : 'error';
+                        const message = data.message || (status === 'success' ? 'Done' : 'Something went wrong');
+
+                        showTempAlert(message, status);
+
+                        if (status === 'success' && data.redirect) {
+                            window.location.href = data.redirect;
+                            return;
+                        }
+
+                        // update cart count badge if product added
+                        const cartBadge = document.querySelector('.cart-badge');
+                        if (cartBadge && status === 'success') {
+                            const current = Number(cartBadge.textContent || '0');
+                            cartBadge.textContent = String(current + 1);
+                            if (current === 0) cartBadge.style.display = 'inline-block';
+                        }
+                    } catch (error) {
+                        console.error('Cart request failed:', error);
+                        showTempAlert('Unable to update cart. Please try again.', 'error');
+                    } finally {
+                        if (submitBtn) {
+                            submitBtn.disabled = false;
+                            submitBtn.classList.remove('opacity-75');
+                        }
+                    }
+                });
+            });
+
+            function showTempAlert(message, type = 'success') {
+                const container = document.querySelector('.container.mt-3') || document.body;
+                const alert = document.createElement('div');
+                alert.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-custom alert-dismissible fade show`;
+                alert.role = 'alert';
+                alert.innerHTML = `<i class="bi ${type === 'success' ? 'bi-check-circle-fill' : 'bi-exclamation-triangle-fill'} me-2"></i>${message}` +
+                    '<button type="button" class="btn-close" data-bs-dismiss="alert"></button>';
+                container.prepend(alert);
+                setTimeout(() => {
+                    if (alert.classList.contains('show')) {
+                        const bsAlert = new bootstrap.Alert(alert);
+                        bsAlert.close();
+                    }
+                }, 5000);
+            }
         });
     </script>
     <script>

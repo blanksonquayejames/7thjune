@@ -62,6 +62,14 @@ class ProductController extends Controller
             ->take(4)
             ->get();
 
-        return view('products.show', compact('product', 'relatedProducts'));
+        $cart = null;
+        if (auth()->check()) {
+            $cart = \App\Models\Cart::firstOrCreate(['user_id' => auth()->id()]);
+        } else {
+            $cart = \App\Models\Cart::firstOrCreate(['session_id' => session()->getId()]);
+        }
+        $inCart = $cart->items()->where('product_id', $product->id)->exists();
+
+        return view('products.show', compact('product', 'relatedProducts', 'inCart'));
     }
 }

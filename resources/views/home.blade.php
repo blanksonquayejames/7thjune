@@ -320,12 +320,6 @@
         </div>
     </div>
 
-    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
 </div>
 
 
@@ -395,7 +389,7 @@
                 <div class="row g-4">
                     @foreach($data['products'] as $product)
                     <div class="col-lg-2 col-md-3 col-6">
-                        <div class="card card-custom h-100">
+                        <div class="card card-custom h-100 product-clickable-card" data-product-url="{{ route('products.show', $product->slug) }}">
                             <div class="card-img-wrapper">
                                 @if($product->image)
                                     <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
@@ -469,7 +463,7 @@
         <div class="row g-4">
             @foreach($featuredProducts as $product)
             <div class="col-lg-3 col-md-4 col-6">
-                <div class="card card-custom h-100">
+                <div class="card card-custom h-100 product-clickable-card" data-product-url="{{ route('products.show', $product->slug) }}">
                     <div class="card-img-wrapper">
                         @if($product->image)
                             <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
@@ -509,7 +503,7 @@
                                 <span class="product-price">₵{{ number_format($product->price, 2) }}</span>
                             @endif
                             @if($product->stock > 0)
-                            <form action="{{ route('cart.add', $product->id) }}" method="POST">
+                            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form">
                                 @csrf
                                 <button type="submit" class="btn btn-add-to-cart btn-sm px-3">
                                     <i class="bi bi-cart-plus"></i>

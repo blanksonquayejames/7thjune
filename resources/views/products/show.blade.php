@@ -96,15 +96,25 @@
             <p class="text-muted lh-lg mb-4">{{ $product->description }}</p>
 
             @if($product->stock > 0)
-            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="d-flex gap-3 mb-4">
-                @csrf
-                <button type="submit" class="btn btn-add-to-cart text-white btn-lg px-4">
-                    <i class="bi bi-cart-plus me-2"></i>Add to Cart
-                </button>
-                <button type="button" class="btn btn-buy-now text-white btn-lg px-4" onclick="this.form.submit()">
-                    <i class="bi bi-bag-check me-2"></i>Buy Now
-                </button>
-            </form>
+            <div class="d-flex gap-3 mb-4 align-items-center">
+                <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form">
+                    @csrf
+                    <button type="submit" class="btn btn-add-to-cart text-white btn-lg px-4" {{ $inCart ? 'disabled' : '' }}>
+                        <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                    </button>
+                </form>
+
+                <form action="{{ route('cart.buyNow', $product->id) }}" method="POST" class="ajax-cart-form">
+                    @csrf
+                    <button type="submit" class="btn btn-buy-now text-white btn-lg px-4">
+                        <i class="bi bi-bag-check me-2"></i>Buy Now
+                    </button>
+                </form>
+
+                @if($inCart)
+                    <span class="text-success fw-semibold">Already in cart</span>
+                @endif
+            </div>
             @endif
 
             <div class="row g-3 mt-3">
