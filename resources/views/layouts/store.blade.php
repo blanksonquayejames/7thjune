@@ -6,7 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="description" content="Premium e-commerce store with the best products at amazing prices.">
 
-    <title>{{ config('app.name', '7th June') }} - @yield('title', 'Premium Online Store')</title>
+    <title>{{ config('app.name', '7th June Computers') }} - @yield('title', 'Premium Online Store')</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -450,8 +450,8 @@
     <nav class="navbar navbar-expand-lg nav-custom py-3">
         <div class="container">
             <a class="navbar-brand navbar-brand-custom d-flex align-items-center" href="{{ route('home') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="7th June Logo" height="40" class="me-2" style="object-fit: contain;">
-                7th June
+                <img src="{{ asset('images/logo.png') }}" alt="7th June Computers Logo" height="40" class="me-2" style="object-fit: contain;">
+                7th June Computers
             </a>
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -553,8 +553,8 @@
             <div class="row">
                 <div class="col-lg-4 mb-4">
                     <h6 class="align-items-center d-flex">
-                        <img src="{{ asset('images/logo.png') }}" alt="7th June Logo" height="30" class="me-2" style="object-fit: contain;">
-                        7th June
+                        <img src="{{ asset('images/logo.png') }}" alt="7th June Computers Logo" height="30" class="me-2" style="object-fit: contain;">
+                        7th June Computers
                     </h6>
                     <p class="small">Your premium online shopping destination. Discover amazing products at unbeatable prices.</p>
                 </div>
@@ -577,7 +577,7 @@
                 </div>
                 <div class="col-lg-4 mb-4">
                     <h6>Contact</h6>
-                    <p class="small mb-1"><i class="bi bi-envelope me-2"></i>support@7thjune.com</p>
+                    <p class="small mb-1"><i class="bi bi-envelope me-2"></i>support@7thjunecomputers.com</p>
                     <p class="small mb-1"><i class="bi bi-telephone me-2"></i>+1 (555) 123-4567</p>
                     <div class="mt-3">
                         <a href="#" class="me-3 fs-5"><i class="bi bi-facebook"></i></a>
@@ -587,7 +587,7 @@
                 </div>
             </div>
             <hr style="border-color: rgba(255,255,255,0.1)">
-            <p class="text-center small mb-0">&copy; {{ date('Y') }} 7th June. All rights reserved.</p>
+            <p class="text-center small mb-0">&copy; {{ date('Y') }} 7th June Computers. All rights reserved.</p>
         </div>
     </footer>
 

@@ -8,9 +8,9 @@
             <div class="card card-custom">
                 <div class="card-body p-5">
                     <div class="text-center mb-4">
-                        <img src="{{ asset('images/logo.png') }}" alt="7th June Logo" height="60" class="mb-2" style="object-fit: contain;">
+                        <img src="{{ asset('images/logo.png') }}" alt="7th June Computers Logo" height="60" class="mb-2" style="object-fit: contain;">
                         <h4 class="fw-bold mt-2">Create Account</h4>
-                        <p class="text-muted small">Join 7TH JUNE and start shopping</p>
+                        <p class="text-muted small">Join 7th June Computers and start shopping</p>
                     </div>
 
                     <form method="POST" action="{{ route('register') }}">
