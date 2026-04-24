@@ -41,6 +41,12 @@
             flex-direction: column;
         }
 
+        /* Hide Pagination Prev/Next Arrows */
+        .pagination .page-item:first-child,
+        .pagination .page-item:last-child {
+            display: none !important;
+        }
+
         /* ── Navbar ── */
         .navbar-brand-custom {
             font-weight: 800;
