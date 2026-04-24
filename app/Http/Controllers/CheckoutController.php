@@ -27,8 +27,14 @@ class CheckoutController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'shipping_address' => 'required|string|max:500',
+            'street' => 'required|string|max:255',
+            'city' => 'required|string|max:100',
+            'region' => 'required|string|max:100',
             'phone' => 'required|string|max:20',
+            'country' => 'required|string|max:100',
+            'shipping_method' => 'required|string',
+            'payment_method' => 'required|string',
+            'paystack_reference' => 'nullable|string',
         ]);
 
         $cart = Cart::where('user_id', auth()->id())->first();
@@ -40,14 +46,32 @@ class CheckoutController extends Controller
         try {
             DB::beginTransaction();
 
-            $total = $cart->total;
+            $subtotal = $cart->total;
+            $tax = $subtotal * 0.075;
+            $total = $subtotal + $tax;
+
+            // Combine address parts into one string to be saved in the text column
+            $addressParts = array_filter([
+                $request->street,
+                $request->city,
+                $request->region,
+                $request->country
+            ]);
+            
+            $shipping_address = implode(', ', $addressParts);
+            $shipping_address .= ' | Shipping: ' . $request->shipping_method;
+            $shipping_address .= ' | Payment: ' . $request->payment_method;
+
+            // Use the phone number provided in the form
+            $phone = $request->phone;
 
             $order = Order::create([
                 'user_id' => auth()->id(),
                 'total' => $total,
                 'status' => 'pending',
-                'shipping_address' => $request->shipping_address,
-                'phone' => $request->phone,
+                'shipping_address' => $shipping_address,
+                'phone' => $phone,
+                'transaction_reference' => $request->paystack_reference,
             ]);
 
             foreach ($cart->items()->with('product')->get() as $item) {
@@ -72,7 +96,7 @@ class CheckoutController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Something went wrong. Please try again.');
+            return back()->with('error', 'Something went wrong. Please try again. ' . $e->getMessage());
         }
     }
 }
