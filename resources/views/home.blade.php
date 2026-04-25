@@ -259,70 +259,31 @@
 @endpush
 
 @section('content')
-<!-- ═══════════ HERO CAROUSEL ═══════════ -->
-<div id="heroCarousel" class="carousel slide hero-carousel" data-bs-ride="carousel" data-bs-interval="5000">
-    <div class="carousel-indicators">
-        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active"></button>
-        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1"></button>
-        <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2"></button>
+<!-- ═══════════ HERO BANNER ═══════════ -->
+<div class="hero-section text-center text-lg-start position-relative" style="background-color: #fdfdfd; overflow: hidden; padding-bottom: 30px;">
+    <!-- Large APPLE background text -->
+    <div class="d-none d-md-block" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); font-size: 32vw; font-weight: 800; color: rgba(0,0,0,0.02); z-index: 1; letter-spacing: 20px; line-height: 1; white-space: nowrap; pointer-events: none;">
+        APPLE
     </div>
 
-    <div class="carousel-inner">
-        <!-- Slide 1 -->
-        <div class="carousel-item active">
-            <div class="hero-slide">
-                <img src="{{ asset('images/hero/slide1.png') }}" class="hero-slide-image" alt="">
-                <div class="container hero-slide-content">
-                    <div class="col-lg-5">
-                        <h1>Charge Your<br>Phone Safely!</h1>
-                        <p class="my-4">A wonderful collection of premium tech accessories. Discover the latest gadgets at unbeatable prices.</p>
-                        <div class="d-flex gap-3">
-                            <a href="{{ route('products.index') }}" class="btn btn-hero-primary">To Shop</a>
-                            <a href="{{ route('products.index', ['category' => 'electronics']) }}" class="btn btn-hero-outline">Read More</a>
-                        </div>
-                    </div>
-                </div>
+    <div class="container position-relative" style="z-index: 2; padding: 6% 0;">
+        <div class="row align-items-center">
+            <div class="col-lg-5 mb-5 mb-lg-0 pe-lg-4 text-center text-lg-start">
+                <h1 style="font-weight: 800; font-size: 3.2rem; line-height: 1.15; color: #111; margin-bottom: 24px; letter-spacing: -1px;">ALL THE TECH YOU<br>NEED, ALL IN ONE PLACE</h1>
+                <p class="text-secondary mb-4 mx-auto mx-lg-0" style="font-size: 0.95rem; max-width: 440px; line-height: 1.6;">Discover the latest electronics, powerful computers, cutting-edge mobiles, security gadgets, accessories, and more — all from trusted sellers and at unbeatable prices. Whether you're upgrading your setup or searching for smart solutions, we've got everything covered.</p>
+                <a href="{{ route('products.index') }}" class="btn rounded-pill d-inline-flex align-items-center fw-bold shadow-sm" style="background-color: #f97316; color: #fff; padding: 10px 24px; font-size: 0.9rem; border: none; transition: transform 0.2s;">
+                    Shop Now <span class="bg-white rounded-circle ms-3 d-inline-flex align-items-center justify-content-center" style="width:28px;height:28px; color:#f97316;"><i class="bi bi-arrow-up-right fw-bold" style="font-size:0.8rem;"></i></span>
+                </a>
             </div>
-        </div>
-
-        <!-- Slide 2 -->
-        <div class="carousel-item">
-            <div class="hero-slide">
-                <img src="{{ asset('images/hero/slide2.png') }}" class="hero-slide-image" alt="">
-                <div class="container hero-slide-content">
-                    <div class="col-lg-5">
-                        <h1>Style That<br>Speaks For You</h1>
-                        <p class="my-4">Explore our curated fashion collection. Premium quality clothing and accessories for every occasion.</p>
-                        <div class="d-flex gap-3">
-                            <a href="{{ route('products.index', ['category' => 'clothing']) }}" class="btn btn-hero-primary">To Shop</a>
-                            <a href="{{ route('products.index') }}" class="btn btn-hero-outline">Read More</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Slide 3 -->
-        <div class="carousel-item">
-            <div class="hero-slide">
-                <img src="{{ asset('images/hero/slide3.png') }}" class="hero-slide-image" alt="">
-                <div class="container hero-slide-content">
-                    <div class="col-lg-5">
-                        <h1>Make Your<br>Home Beautiful</h1>
-                        <p class="my-4">Transform your living space with our home & garden catalog. Candles, plants, decor and more.</p>
-                        <div class="d-flex gap-3">
-                            <a href="{{ route('products.index', ['category' => 'home-garden']) }}" class="btn btn-hero-primary">To Shop</a>
-                            <a href="{{ route('products.index') }}" class="btn btn-hero-outline">Read More</a>
-                        </div>
-                    </div>
-                </div>
+            <div class="col-lg-7 text-center position-relative mt-4 mt-lg-0">
+                <img src="{{ asset('images/hero/slide1.png') }}" alt="Tech Devices" class="img-fluid" style="object-fit: contain; max-height: 520px; z-index:3; position:relative; filter: drop-shadow(15px 15px 35px rgba(0,0,0,0.12)); max-width: 100%;">
             </div>
         </div>
     </div>
-
 </div>
 
 
+<!-- ═══════════ CATEGORY ICONS ═══════════ -->
 <!-- ═══════════ CATEGORY ICONS ═══════════ -->
 <section class="py-5">
     <div class="container">
@@ -388,57 +349,59 @@
                  id="panel-{{ $slug }}" role="tabpanel">
                 <div class="row g-4">
                     @foreach($data['products'] as $product)
+                    @php
+                        // Generate a soft random pastel background based on product ID for the image box
+                        $colors = ['#f0fdf4', '#f0f9ff', '#fffbeb', '#fdf4ff', '#eff6ff', '#f8fafc'];
+                        $bg = $colors[$product->id % count($colors)];
+                    @endphp
                     <div class="col-lg-2 col-md-3 col-6">
-                        <div class="card card-custom h-100 product-clickable-card" data-product-url="{{ route('products.show', $product->slug) }}">
-                            <div class="card-img-wrapper">
+                        <!-- Wrapper card -->
+                        <div class="card h-100 product-clickable-card bg-white" data-product-url="{{ route('products.show', $product->slug) }}" style="border: 1px solid #f0f0f0; border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s; position:relative;">
+                            
+                            <!-- Inner Image block -->
+                            <div class="m-2 d-flex align-items-center justify-content-center position-relative" style="background-color: {{ $bg }}; border-radius: 10px; height: 160px; overflow: hidden; padding: 10px;">
                                 @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: contain; z-index: 2; mix-blend-mode: darken;">
                                 @else
-                                    <div class="placeholder-img" style="height:180px; font-size:2.5rem">
-                                        <i class="bi bi-box-seam"></i>
-                                    </div>
+                                    <i class="bi bi-box-seam fs-1 text-muted"></i>
                                 @endif
+                                
+                                <!-- Mini Badges inside image -->
+                                @if($product->stock == 0)
+                                    <span class="position-absolute top-0 start-0 m-2 badge bg-dark rounded-pill px-2 py-1" style="font-size: 0.65rem; z-index: 5;">Sold Out</span>
+                                @elseif($product->hasActiveDiscount())
+                                    <span class="position-absolute top-0 start-0 m-2 badge bg-danger rounded-pill px-2 py-1" style="font-size: 0.65rem; z-index: 5;">-{{ $product->discount_percentage }}%</span>
+                                @elseif($product->is_hot)
+                                    <span class="position-absolute top-0 start-0 m-2 badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.65rem; z-index: 5;">Hot</span>
+                                @endif
+                            </div>
 
-                                {{-- Badges --}}
-                                <div class="product-badge">
-                                    @if($product->stock == 0)
-                                        <span class="badge-sold-out">Sold Out</span>
-                                    @endif
-                                    @if($product->is_hot)
-                                        <span class="badge-hot">Hot</span>
-                                    @endif
-                                    @if($product->hasActiveDiscount())
-                                        <span class="badge-hot" style="background:#ef4444">-{{ $product->discount_percentage }}%</span>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="card-body px-3 py-3">
-                                <h6 class="mb-1" style="font-size:0.85rem; font-weight:600">
-                                    <a href="{{ route('products.show', $product->slug) }}" class="text-decoration-none text-dark">{{ Str::limit($product->name, 30) }}</a>
+                            <!-- Card Body -->
+                            <div class="card-body px-2 pb-2 pt-1 d-flex flex-column bg-transparent" style="position:relative;">
+                                <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.85rem;">
+                                    {{ $product->name }}
                                 </h6>
-                                <small class="text-muted d-block mb-1">{{ $product->category->name }}</small>
-                                @if($product->is_hot)
-                                <div class="star-rating mb-1">
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                    <i class="bi bi-star-fill"></i>
-                                </div>
-                                @endif
-                                @if($product->hasActiveDiscount())
-                                    <span class="text-decoration-line-through text-muted" style="font-size:0.8rem">₵{{ number_format($product->price, 2) }}</span>
-                                    <span class="product-price" style="font-size:1rem">₵{{ number_format($product->discounted_price, 2) }}</span>
-                                    @if($product->discount_end)
-                                    <div class="discount-countdown mt-1" data-countdown-end="{{ $product->discount_end->toIso8601String() }}">
-                                        <i class="bi bi-clock"></i>
-                                        <span class="cd-compact-text">Loading...</span>
-                                    </div>
+                                <small class="text-muted d-block text-truncate mb-2" style="font-size: 0.70rem;">{{ $product->category->name }}</small>
+                                
+                                <div class="mt-auto d-flex flex-column pt-1">
+                                    @if($product->hasActiveDiscount())
+                                        <span class="fw-bold" style="color: var(--primary); font-size: 0.95rem;">₵{{ number_format($product->discounted_price, 2) }}</span>
+                                        <span class="text-decoration-line-through text-muted" style="font-size: 0.75rem;">₵{{ number_format($product->price, 2) }}</span>
+                                    @else
+                                        <span class="fw-bold" style="color: var(--primary); font-size: 0.95rem;">₵{{ number_format($product->price, 2) }}</span>
                                     @endif
-                                @else
-                                    <span class="product-price" style="font-size:1rem">₵{{ number_format($product->price, 2) }}</span>
-                                @endif
+                                </div>
                             </div>
+                            
+                            <!-- Floating Action Button -->
+                            @if($product->stock > 0)
+                            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form position-absolute" style="bottom: 8px; right: 8px; z-index:5;">
+                                @csrf
+                                <button type="submit" class="btn rounded-circle shadow-sm d-flex align-items-center justify-content-center add-cart-btn" style="width: 28px; height: 28px; padding:0; border: none; background-color: var(--primary); color: white; transition: background 0.2s;">
+                                    <i class="bi bi-arrow-up-right fw-bold" style="font-size: 0.8rem;"></i>
+                                </button>
+                            </form>
+                            @endif
                         </div>
                     </div>
                     @endforeach
@@ -451,73 +414,65 @@
 </section>
 
 
-<!-- ═══════════ FEATURED PRODUCTS ═══════════ -->
-<section class="py-5" style="background-color: #F9FAFB;">
+<!-- ═══════════ MOBILE FOR ALL (PRODUCTS) ═══════════ -->
+<section class="py-5 bg-white">
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-5">
-            <div>
-                <h2 class="section-title">Popular Products</h2>
-            </div>
-            <a href="{{ route('products.index') }}" class="btn btn-secondary-custom">View All <i class="bi bi-arrow-right ms-1"></i></a>
+        <div class="d-flex justify-content-between align-items-end mb-4">
+            <h4 class="fw-bold mb-0 text-dark" style="font-size: 1.4rem;">Mobile for All</h4>
+            <a href="{{ route('products.index') }}" class="fw-bold text-decoration-none" style="color: var(--primary); font-size: 0.85rem;">See All</a>
         </div>
+        
         <div class="row g-4">
-            @foreach($featuredProducts as $product)
+            @foreach($featuredProducts->take(4) as $product)
+            @php
+                // Generate a soft random pastel background based on product ID for the image box
+                $colors = ['#f0fdf4', '#f0f9ff', '#fffbeb', '#fdf4ff', '#eff6ff', '#f8fafc'];
+                $bg = $colors[$product->id % count($colors)];
+            @endphp
             <div class="col-lg-3 col-md-4 col-6">
-                <div class="card card-custom h-100 product-clickable-card" data-product-url="{{ route('products.show', $product->slug) }}">
-                    <div class="card-img-wrapper">
+                <!-- Wrapper card (border outline around everything) -->
+                <div class="card h-100 product-clickable-card bg-white" data-product-url="{{ route('products.show', $product->slug) }}" style="border: 1px solid #f0f0f0; border-radius: 16px; transition: transform 0.2s, box-shadow 0.2s; position:relative;">
+                    
+                    <!-- Inner Image block -->
+                    <div class="m-2 d-flex align-items-center justify-content-center position-relative" style="background-color: {{ $bg }}; border-radius: 12px; height: 200px; overflow: hidden; padding: 10px;">
                         @if($product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                            <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: contain; z-index: 2; mix-blend-mode: darken;">
                         @else
-                            <div class="placeholder-img">
-                                <i class="bi bi-box-seam"></i>
-                            </div>
+                            <i class="bi bi-phone fs-1 text-muted"></i>
                         @endif
+                        
+                        <!-- Mini Badges inside image -->
+                        @if($product->hasActiveDiscount())
+                            <span class="position-absolute top-0 start-0 m-2 badge bg-danger rounded-pill px-2 py-1" style="font-size: 0.65rem;">-{{ $product->discount_percentage }}%</span>
+                        @endif
+                    </div>
 
-                        {{-- Badges --}}
-                        <div class="product-badge">
-                            @if($product->stock == 0)
-                                <span class="badge-sold-out">Sold Out</span>
-                            @elseif($product->stock < 5)
-                                <span class="badge-hot" style="background:#f59e0b">Low Stock</span>
-                            @endif
-                            @if($product->is_hot)
-                                <span class="badge-hot">Hot</span>
-                            @endif
-                            @if($product->hasActiveDiscount())
-                                <span class="badge-hot" style="background:#ef4444">-{{ $product->discount_percentage }}%</span>
-                            @elseif($product->created_at->diffInDays(now()) < 7)
-                                <span class="badge-new">New</span>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="card-body d-flex flex-column">
-                        <small class="text-muted">{{ $product->category->name ?? '' }}</small>
-                        <h6 class="mt-1 mb-2">
-                            <a href="{{ route('products.show', $product->slug) }}" class="text-decoration-none text-dark">{{ $product->name }}</a>
+                    <!-- Card Body -->
+                    <div class="card-body px-3 pb-3 pt-2 d-flex flex-column bg-transparent" style="position:relative;">
+                        <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.95rem;">
+                            {{ $product->name }}
                         </h6>
-                        <div class="mt-auto d-flex justify-content-between align-items-center">
+                        <small class="text-muted d-block text-truncate mb-2" style="font-size: 0.75rem;">Discover the latest electronic</small>
+                        
+                        <div class="mt-auto d-flex flex-column pt-1">
                             @if($product->hasActiveDiscount())
-                                <span class="text-decoration-line-through text-muted small">₵{{ number_format($product->price, 2) }}</span>
-                                <span class="product-price">₵{{ number_format($product->discounted_price, 2) }}</span>
+                                <span class="fw-bold" style="color: var(--primary); font-size: 1rem;">₵{{ number_format($product->discounted_price, 2) }}</span>
+                                <span class="text-decoration-line-through text-muted" style="font-size: 0.75rem;">₵{{ number_format($product->price, 2) }}</span>
                             @else
-                                <span class="product-price">₵{{ number_format($product->price, 2) }}</span>
-                            @endif
-                            @if($product->stock > 0)
-                            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form">
-                                @csrf
-                                <button type="submit" class="btn btn-add-to-cart btn-sm px-3">
-                                    <i class="bi bi-cart-plus"></i>
-                                </button>
-                            </form>
+                                <span class="fw-bold" style="color: var(--primary); font-size: 1rem;">₵{{ number_format($product->price, 2) }}</span>
                             @endif
                         </div>
-                        @if($product->hasActiveDiscount() && $product->discount_end)
-                        <div class="discount-countdown mt-2" data-countdown-end="{{ $product->discount_end->toIso8601String() }}">
-                            <i class="bi bi-clock"></i>
-                            <span class="cd-compact-text">Loading...</span>
-                        </div>
-                        @endif
                     </div>
+
+                    <!-- Floating Action Button -->
+                    @if($product->stock > 0)
+                    <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form position-absolute" style="bottom: 12px; right: 12px; z-index:5;">
+                        @csrf
+                        <button type="submit" class="btn rounded-circle shadow-sm d-flex align-items-center justify-content-center add-cart-btn" style="width: 32px; height: 32px; padding:0; border: none; background-color: var(--primary); color: white; transition: background 0.2s;">
+                            <i class="bi bi-arrow-up-right fw-bold" style="font-size: 0.9rem;"></i>
+                        </button>
+                    </form>
+                    @endif
                 </div>
             </div>
             @endforeach

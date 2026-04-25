@@ -525,40 +525,31 @@
     @stack('styles')
 </head>
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg nav-custom py-3">
-        <div class="container">
-            <a class="navbar-brand navbar-brand-custom d-flex align-items-center" href="{{ route('home') }}">
+        <div class="container d-flex flex-wrap align-items-center justify-content-between">
+            <a class="navbar-brand navbar-brand-custom d-flex align-items-center m-0" href="{{ route('home') }}">
                 <img src="{{ asset('images/logo.png') }}" alt="7th June Computers Logo" height="40" class="me-2" style="object-fit: contain;">
                 7th June Computers
             </a>
+
+            <!-- Center Search Bar -->
+            <div class="d-none d-lg-flex flex-grow-1 justify-content-center mx-4">
+                <form action="{{ route('products.index') }}" method="GET" class="position-relative w-100" style="max-width: 600px;">
+                    <i class="bi bi-search position-absolute text-muted" style="left: 15px; top: 50%; transform: translateY(-50%); padding-left: 5px;"></i>
+                    <input type="text" name="search" class="form-control ps-5 py-2 border-0" placeholder="Search item" style="background:#f3f4f6; border-radius: 50px; padding-right: 120px; color:#333;">
+                    <button type="submit" class="btn btn-dark position-absolute" style="top: 3px; right: 3px; bottom: 3px; padding-left:30px; padding-right:30px; border-radius: 50px; font-weight:600;">Search</button>
+                </form>
+            </div>
+            
             <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto ms-4">
+
+            <div class="collapse navbar-collapse flex-grow-0 mt-3 mt-lg-0" id="navbarNav">
+                <ul class="navbar-nav align-items-center flex-row gap-3">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('products.*') ? 'active' : '' }}" href="{{ route('products.index') }}">Products</a>
-                    </li>
-                    @auth
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->routeIs('orders.*') ? 'active' : '' }}" href="{{ route('orders.index') }}">My Orders</a>
-                    </li>
-                    @endauth
-                </ul>
-                <ul class="navbar-nav align-items-center">
-                    <!-- Theme Toggle -->
-                    <li class="nav-item me-3">
-                        <button id="theme-toggle" class="btn btn-link nav-link px-2 py-1" style="box-shadow: none;" aria-label="Toggle Dark Mode">
-                            <i class="bi bi-moon-fill fs-5" id="theme-icon"></i>
-                        </button>
-                    </li>
-                    <li class="nav-item me-3">
-                        <a class="nav-link position-relative text-white" href="{{ route('cart.index') }}">
-                            <i class="bi bi-cart3 fs-5"></i>
+                        <a class="nav-link position-relative text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center" style="width:42px;height:42px;" href="{{ route('cart.index') }}">
+                            <i class="bi bi-cart3"></i>
                             @php
                                 $cartCount = 0;
                                 if(auth()->check()) {
@@ -569,40 +560,59 @@
                                 if($cartObj) { $cartCount = $cartObj->items()->sum('quantity'); }
                             @endphp
                             @if($cartCount > 0)
-                            <span class="cart-badge">{{ $cartCount }}</span>
+                            <span class="cart-badge badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle border border-white">{{ $cartCount }}</span>
                             @endif
                         </a>
                     </li>
                     @guest
-                    <li class="nav-item">
-                        <a class="btn btn-secondary-custom btn-sm me-2 bg-white text-primary" href="{{ route('login') }}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="btn btn-primary-custom btn-sm" href="{{ route('register') }}">Register</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="width:42px;height:42px;">
+                            <i class="bi bi-person"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:12px">
+                            <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('login') }}"><i class="bi bi-box-arrow-in-right me-2"></i>Login</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('register') }}"><i class="bi bi-person-plus me-2"></i>Register</a></li>
+                        </ul>
                     </li>
                     @else
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown">
-                            <i class="bi bi-person-circle me-1"></i>{{ Auth::user()->name }}
+                        <a class="nav-link text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="width:42px;height:42px;" title="{{ Auth::user()->name }}">
+                            <i class="bi bi-person-check-fill"></i>
                         </a>
-                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:12px">
-                            <li><a class="dropdown-item py-2" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2"></i>Profile</a></li>
-                            <li><a class="dropdown-item py-2" href="{{ route('orders.index') }}"><i class="bi bi-box-seam me-2"></i>My Orders</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-2" style="border-radius:12px">
+                            <li class="px-3 py-2 text-muted small fw-bold text-uppercase border-bottom mb-1">{{ Auth::user()->name }}</li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('profile.edit') }}"><i class="bi bi-person me-2 text-primary"></i>Profile</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('orders.index') }}"><i class="bi bi-box-seam me-2 text-primary"></i>My Orders</a></li>
                             @if(Auth::user()->isAdmin())
                             <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item py-2 text-primary" href="{{ route('admin.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>Admin Panel</a></li>
+                            <li><a class="dropdown-item py-2 fw-semibold text-primary" href="{{ route('admin.dashboard') }}"><i class="bi bi-speedometer2 me-2"></i>Admin Panel</a></li>
                             @endif
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
-                                    <button class="dropdown-item py-2 text-danger" type="submit"><i class="bi bi-box-arrow-right me-2"></i>Logout</button>
+                                    <button class="dropdown-item py-2 fw-bold text-danger" type="submit"><i class="bi bi-box-arrow-right me-2"></i>Logout</button>
                                 </form>
                             </li>
                         </ul>
                     </li>
                     @endguest
+                    
+                    <!-- Theme Toggle -->
+                    <li class="nav-item ms-md-2">
+                        <button id="theme-toggle" class="nav-link text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center border-0" style="width:42px;height:42px;" aria-label="Toggle Dark Mode">
+                            <i class="bi bi-moon-fill" id="theme-icon"></i>
+                        </button>
+                    </li>
                 </ul>
+                
+                <!-- Mobile Search Bar (visible only on small screens) -->
+                <div class="d-block d-lg-none mt-4 w-100 pb-2">
+                    <form action="{{ route('products.index') }}" method="GET" class="position-relative w-100">
+                        <i class="bi bi-search position-absolute text-muted" style="left: 15px; top: 50%; transform: translateY(-50%);"></i>
+                        <input type="text" name="search" class="form-control ps-5 py-2 border-0" placeholder="Search item" style="background:#f3f4f6; border-radius: 50px; color:#333;">
+                    </form>
+                </div>
             </div>
         </div>
     </nav>
@@ -656,10 +666,10 @@
                 </div>
                 <div class="col-lg-4 mb-4">
                     <h6>Contact</h6>
-                    <p class="small mb-1"><i class="bi bi-envelope me-2"></i>support@7thjunecomputers.com</p>
+                    <p class="small mb-1"><i class="bi bi-envelope me-2"></i>june7thcomputers@gmail.com</p>
                     <p class="small mb-1"><i class="bi bi-telephone me-2"></i>+1 (555) 123-4567</p>
                     <div class="mt-3">
-                        <a href="#" class="me-3 fs-5"><i class="bi bi-facebook"></i></a>
+                        <a href="https://web.facebook.com/7thJuneComputers" target="_blank" rel="noopener noreferrer" class="me-3 fs-5"><i class="bi bi-facebook"></i></a>
                         <a href="#" class="me-3 fs-5"><i class="bi bi-twitter-x"></i></a>
                         <a href="#" class="me-3 fs-5"><i class="bi bi-instagram"></i></a>
                     </div>

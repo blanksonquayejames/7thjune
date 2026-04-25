@@ -51,6 +51,9 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
+        // Check user specifically into manually keyed session as requested
+        session(['user' => $user]);
+
         // Merge guest cart into the new user's cart
         $this->mergeGuestCart($guestSessionId, $user->id);
 

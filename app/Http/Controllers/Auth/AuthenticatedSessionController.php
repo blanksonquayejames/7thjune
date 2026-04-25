@@ -33,6 +33,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // Check user specifically into manually keyed session as requested
+        session(['user' => Auth::user()]);
+
         // Merge guest cart into the logged-in user's cart
         $this->mergeGuestCart($guestSessionId, Auth::id());
 
@@ -44,6 +47,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        // Forget manually assigned session user
+        session()->forget('user');
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

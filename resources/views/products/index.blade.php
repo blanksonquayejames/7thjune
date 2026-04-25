@@ -71,50 +71,60 @@
                 <div class="row g-4">
                     @foreach($products as $product)
                     <div class="col-md-4 col-6">
-                        <div class="card card-custom h-100 product-clickable-card" data-product-url="{{ route('products.show', $product->slug) }}">
-                            <div class="card-img-wrapper">
+                        @php
+                            // Generate a soft random pastel background based on product ID for the image box
+                            $colors = ['#f0fdf4', '#f0f9ff', '#fffbeb', '#fdf4ff', '#eff6ff', '#f8fafc'];
+                            $bg = $colors[$product->id % count($colors)];
+                        @endphp
+                        <!-- Wrapper card -->
+                        <div class="card h-100 product-clickable-card bg-white" data-product-url="{{ route('products.show', $product->slug) }}" style="border: 1px solid #f0f0f0; border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s; position:relative;">
+                            
+                            <!-- Inner Image block -->
+                            <div class="m-2 d-flex align-items-center justify-content-center position-relative" style="background-color: {{ $bg }}; border-radius: 10px; height: 180px; overflow: hidden; padding: 10px;">
                                 @if($product->image)
-                                    <img src="{{ asset('storage/' . $product->image) }}" class="card-img-top" alt="{{ $product->name }}">
+                                    <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" style="width: 100%; height: 100%; object-fit: contain; z-index: 2; mix-blend-mode: darken;">
                                 @else
-                                    <div class="placeholder-img">
-                                        <i class="bi bi-box-seam"></i>
-                                    </div>
+                                    <i class="bi bi-box-seam fs-1 text-muted"></i>
                                 @endif
+                                
+                                <!-- Mini Badges inside image -->
                                 @if($product->stock == 0)
-                                    <span class="badge-overlay"><span class="badge bg-danger">Out of Stock</span></span>
+                                    <span class="position-absolute top-0 start-0 m-2 badge bg-dark rounded-pill px-2 py-1" style="font-size: 0.65rem; z-index: 5;">Sold Out</span>
                                 @elseif($product->hasActiveDiscount())
-                                    <span class="badge-overlay"><span class="badge bg-danger">-{{ $product->discount_percentage }}%</span></span>
+                                    <span class="position-absolute top-0 start-0 m-2 badge bg-danger rounded-pill px-2 py-1" style="font-size: 0.65rem; z-index: 5;">-{{ $product->discount_percentage }}%</span>
+                                @elseif($product->is_hot)
+                                    <span class="position-absolute top-0 start-0 m-2 badge bg-warning text-dark rounded-pill px-2 py-1" style="font-size: 0.65rem; z-index: 5;">Hot</span>
                                 @endif
                             </div>
-                            <div class="card-body d-flex flex-column">
-                                <small class="text-muted">{{ $product->category->name ?? '' }}</small>
-                                <h6 class="mt-1 mb-2">
-                                    <a href="{{ route('products.show', $product->slug) }}" class="text-decoration-none text-dark">{{ $product->name }}</a>
+
+                            <!-- Card Body -->
+                            <div class="card-body px-3 pb-3 pt-2 d-flex flex-column bg-transparent" style="position:relative;">
+                                <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.95rem;">
+                                    {{ $product->name }}
                                 </h6>
-                                <p class="text-muted small flex-grow-1">{{ Str::limit($product->description, 60) }}</p>
-                                <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-muted d-block text-truncate mb-2" style="font-size: 0.75rem;">{{ $product->category->name ?? 'Discover the latest' }}</small>
+                                
+                                <p class="text-muted small flex-grow-1" style="font-size:0.8rem;">{{ Str::limit($product->description, 50) }}</p>
+
+                                <div class="mt-auto d-flex flex-column pt-1">
                                     @if($product->hasActiveDiscount())
-                                        <span class="text-decoration-line-through text-muted small">₵{{ number_format($product->price, 2) }}</span>
-                                        <span class="product-price">₵{{ number_format($product->discounted_price, 2) }}</span>
+                                        <span class="fw-bold" style="color: var(--primary); font-size: 1rem;">₵{{ number_format($product->discounted_price, 2) }}</span>
+                                        <span class="text-decoration-line-through text-muted" style="font-size: 0.75rem;">₵{{ number_format($product->price, 2) }}</span>
                                     @else
-                                        <span class="product-price">₵{{ number_format($product->price, 2) }}</span>
-                                    @endif
-                                    @if($product->stock > 0)
-                                    <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form">
-                                        @csrf
-                                        <button type="submit" class="btn btn-accent btn-sm px-3">
-                                            <i class="bi bi-cart-plus"></i>
-                                        </button>
-                                    </form>
+                                        <span class="fw-bold" style="color: var(--primary); font-size: 1rem;">₵{{ number_format($product->price, 2) }}</span>
                                     @endif
                                 </div>
-                                @if($product->hasActiveDiscount() && $product->discount_end)
-                                <div class="discount-countdown mt-2" data-countdown-end="{{ $product->discount_end->toIso8601String() }}">
-                                    <i class="bi bi-clock"></i>
-                                    <span class="cd-compact-text">Loading...</span>
-                                </div>
-                                @endif
                             </div>
+                            
+                            <!-- Floating Action Button -->
+                            @if($product->stock > 0)
+                            <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form position-absolute" style="bottom: 12px; right: 12px; z-index:5;">
+                                @csrf
+                                <button type="submit" class="btn rounded-circle shadow-sm d-flex align-items-center justify-content-center add-cart-btn" style="width: 32px; height: 32px; padding:0; border: none; background-color: var(--primary); color: white; transition: background 0.2s;">
+                                    <i class="bi bi-arrow-up-right fw-bold" style="font-size: 0.9rem;"></i>
+                                </button>
+                            </form>
+                            @endif
                         </div>
                     </div>
                     @endforeach

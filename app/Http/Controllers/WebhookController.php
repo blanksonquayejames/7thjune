@@ -41,6 +41,13 @@ class WebhookController extends Controller
             if ($order) {
                 // Update voice of truth
                 $order->update(['status' => 'processing']);
+
+                // Send email receipt
+                try {
+                    \Illuminate\Support\Facades\Mail::to($order->user->email)->send(new \App\Mail\OrderReceipt($order));
+                } catch (\Exception $e) {
+                    \Illuminate\Support\Facades\Log::error('Failed to send receipt email: ' . $e->getMessage());
+                }
             }
         }
 
