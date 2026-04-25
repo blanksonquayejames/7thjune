@@ -526,30 +526,35 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-lg nav-custom py-3">
-        <div class="container d-flex flex-wrap align-items-center justify-content-between">
-            <a class="navbar-brand navbar-brand-custom d-flex align-items-center m-0" href="{{ route('home') }}">
-                <img src="{{ asset('images/logo.png') }}" alt="7th June Computers Logo" height="40" class="me-2" style="object-fit: contain;">
-                7th June Computers
-            </a>
+        <div class="container-fluid px-4 px-lg-5 position-relative d-flex flex-wrap align-items-center justify-content-between">
+            
+            <!-- Left: Logo -->
+            <div class="d-flex align-items-center" style="flex: 1; min-width: max-content;">
+                <a class="navbar-brand navbar-brand-custom d-flex align-items-center m-0" href="{{ route('home') }}">
+                    <img src="{{ asset('images/logo.png') }}" alt="7th June Computers Logo" height="35" class="me-2" style="object-fit: contain;">
+                    <span style="font-size: 1.2rem;">7th June Computers</span>
+                </a>
+            </div>
 
-            <!-- Center Search Bar -->
-            <div class="d-none d-lg-flex flex-grow-1 justify-content-center mx-4">
-                <form action="{{ route('products.index') }}" method="GET" class="position-relative w-100" style="max-width: 600px;">
+            <!-- Center: Search Bar -->
+            <div class="d-none d-lg-flex justify-content-center mx-3" style="flex: 2;">
+                <form action="{{ route('products.index') }}" method="GET" class="position-relative w-100" style="max-width: 550px;">
                     <i class="bi bi-search position-absolute text-muted" style="left: 15px; top: 50%; transform: translateY(-50%); padding-left: 5px;"></i>
-                    <input type="text" name="search" class="form-control ps-5 py-2 border-0" placeholder="Search item" style="background:#f3f4f6; border-radius: 50px; padding-right: 120px; color:#333;">
-                    <button type="submit" class="btn btn-dark position-absolute" style="top: 3px; right: 3px; bottom: 3px; padding-left:30px; padding-right:30px; border-radius: 50px; font-weight:600;">Search</button>
+                    <input type="text" name="search" class="form-control ps-5 py-2 border-0" placeholder="Search item" style="background:#f3f4f6; border-radius: 50px; padding-right: 110px; color:#333; font-size: 0.95rem;">
+                    <button type="submit" class="btn btn-dark position-absolute" style="top: 3px; right: 3px; bottom: 3px; padding-left:25px; padding-right:25px; border-radius: 50px; font-weight:600; font-size: 0.9rem;">Search</button>
                 </form>
             </div>
             
-            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-0 ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse flex-grow-0 mt-3 mt-lg-0" id="navbarNav">
-                <ul class="navbar-nav align-items-center flex-row gap-3">
+            <!-- Right: Icons -->
+            <div class="collapse navbar-collapse mt-3 mt-lg-0 justify-content-end" id="navbarNav" style="flex: 1;">
+                <ul class="navbar-nav align-items-center flex-row gap-2 justify-content-end w-100">
                     <li class="nav-item">
-                        <a class="nav-link position-relative text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center" style="width:42px;height:42px;" href="{{ route('cart.index') }}">
-                            <i class="bi bi-cart3"></i>
+                        <a class="nav-link position-relative text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center" style="width:36px;height:36px;" href="{{ route('cart.index') }}">
+                            <i class="bi bi-cart3" style="font-size: 0.95rem;"></i>
                             @php
                                 $cartCount = 0;
                                 if(auth()->check()) {
@@ -560,14 +565,14 @@
                                 if($cartObj) { $cartCount = $cartObj->items()->sum('quantity'); }
                             @endphp
                             @if($cartCount > 0)
-                            <span class="cart-badge badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle border border-white">{{ $cartCount }}</span>
+                            <span class="cart-badge badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle border border-white" style="font-size: 0.6rem; transform: translate(-30%, -30%) !important;">{{ $cartCount }}</span>
                             @endif
                         </a>
                     </li>
                     @guest
                     <li class="nav-item dropdown">
-                        <a class="nav-link text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="width:42px;height:42px;">
-                            <i class="bi bi-person"></i>
+                        <a class="nav-link text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="width:36px;height:36px;">
+                            <i class="bi bi-person" style="font-size: 0.95rem;"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" style="border-radius:12px">
                             <li><a class="dropdown-item py-2 fw-semibold" href="{{ route('login') }}"><i class="bi bi-box-arrow-in-right me-2"></i>Login</a></li>
@@ -576,8 +581,8 @@
                     </li>
                     @else
                     <li class="nav-item dropdown">
-                        <a class="nav-link text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="width:42px;height:42px;" title="{{ Auth::user()->name }}">
-                            <i class="bi bi-person-check-fill"></i>
+                        <a class="nav-link text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" style="width:36px;height:36px;" title="{{ Auth::user()->name }}">
+                            <i class="bi bi-person-check-fill" style="font-size: 0.95rem;"></i>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-2" style="border-radius:12px">
                             <li class="px-3 py-2 text-muted small fw-bold text-uppercase border-bottom mb-1">{{ Auth::user()->name }}</li>
@@ -599,9 +604,9 @@
                     @endguest
                     
                     <!-- Theme Toggle -->
-                    <li class="nav-item ms-md-2">
-                        <button id="theme-toggle" class="nav-link text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center border-0" style="width:42px;height:42px;" aria-label="Toggle Dark Mode">
-                            <i class="bi bi-moon-fill" id="theme-icon"></i>
+                    <li class="nav-item ms-md-1">
+                        <button id="theme-toggle" class="nav-link text-white bg-white bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center border-0" style="width:36px;height:36px;" aria-label="Toggle Dark Mode">
+                            <i class="bi bi-moon-fill" id="theme-icon" style="font-size: 0.85rem;"></i>
                         </button>
                     </li>
                 </ul>
@@ -618,20 +623,22 @@
     </nav>
 
     <!-- Flash Messages -->
-    <div class="container mt-3">
+    @if(session('success') || session('error'))
+    <div class="container mt-3 position-absolute start-50 translate-middle-x" style="z-index: 1060; top: 90px; width: 100%;">
         @if(session('success'))
-        <div class="alert alert-success alert-custom alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-custom alert-dismissible fade show shadow-sm" role="alert">
             <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         @endif
         @if(session('error'))
-        <div class="alert alert-danger alert-custom alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-custom alert-dismissible fade show shadow-sm" role="alert">
             <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
         </div>
         @endif
     </div>
+    @endif
 
     <!-- Content -->
     @yield('content')

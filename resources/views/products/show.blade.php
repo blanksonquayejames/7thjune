@@ -15,14 +15,21 @@
     <div class="row g-5">
         <!-- Product Image -->
         <div class="col-lg-6">
-            <div class="card card-custom overflow-hidden">
-                @if($product->image)
-                    <img src="{{ asset('storage/' . $product->image) }}" class="w-100" alt="{{ $product->name }}" style="max-height:500px; object-fit:cover">
-                @else
-                    <div class="placeholder-img" style="height:400px; font-size:5rem">
-                        <i class="bi bi-box-seam"></i>
-                    </div>
-                @endif
+            @php
+                // Generate the pastel background for consistency
+                $colors = ['#f0fdf4', '#f0f9ff', '#fffbeb', '#fdf4ff', '#eff6ff', '#f8fafc'];
+                $bg = $colors[$product->id % count($colors)];
+            @endphp
+            <div class="card overflow-hidden border-0" style="background-color: {{ $bg }}; border-radius: 20px;">
+                <div class="p-4 d-flex align-items-center justify-content-center" style="min-height: 450px;">
+                    @if($product->image)
+                        <img src="{{ asset('storage/' . $product->image) }}" class="img-fluid" alt="{{ $product->name }}" style="max-height:450px; object-fit:contain; mix-blend-mode: darken;">
+                    @else
+                        <div class="placeholder-img" style="height:400px; font-size:5rem">
+                            <i class="bi bi-box-seam"></i>
+                        </div>
+                    @endif
+                </div>
             </div>
         </div>
 
@@ -237,23 +244,40 @@
         <div class="row g-4 mt-3">
             @foreach($relatedProducts as $related)
             <div class="col-lg-3 col-md-4 col-6">
-                <div class="card card-custom h-100">
-                    <div class="card-img-wrapper">
+                @php
+                    $colors = ['#f0fdf4', '#f0f9ff', '#fffbeb', '#fdf4ff', '#eff6ff', '#f8fafc'];
+                    $bg = $colors[$related->id % count($colors)];
+                @endphp
+                <div class="card h-100 product-clickable-card bg-white" data-product-url="{{ route('products.show', $related->slug) }}" style="border: 1px solid #f0f0f0; border-radius: 12px; transition: transform 0.2s, box-shadow 0.2s; position:relative;">
+                    
+                    <div class="m-2 d-flex align-items-center justify-content-center position-relative" style="background-color: {{ $bg }}; border-radius: 10px; height: 180px; overflow: hidden; padding: 10px;">
                         @if($related->image)
-                            <img src="{{ asset('storage/' . $related->image) }}" class="card-img-top" alt="{{ $related->name }}">
+                            <img src="{{ asset('storage/' . $related->image) }}" alt="{{ $related->name }}" style="width: 100%; height: 100%; object-fit: contain; z-index: 2; mix-blend-mode: darken;">
                         @else
-                            <div class="placeholder-img"><i class="bi bi-box-seam"></i></div>
+                            <i class="bi bi-box-seam fs-1 text-muted"></i>
+                        @endif
+                        
+                        @if($related->stock == 0)
+                            <span class="position-absolute top-0 start-0 m-2 badge bg-dark rounded-pill px-2 py-1" style="font-size: 0.65rem; z-index: 5;">Sold Out</span>
+                        @elseif($related->hasActiveDiscount())
+                            <span class="position-absolute top-0 start-0 m-2 badge bg-danger rounded-pill px-2 py-1" style="font-size: 0.65rem; z-index: 5;">-{{ $related->discount_percentage }}%</span>
                         @endif
                     </div>
-                    <div class="card-body">
-                        <small class="text-muted">{{ $related->category->name ?? '' }}</small>
-                        <h6 class="mt-1"><a href="{{ route('products.show', $related->slug) }}" class="text-decoration-none text-dark">{{ $related->name }}</a></h6>
-                        @if($related->hasActiveDiscount())
-                            <span class="text-decoration-line-through text-muted small">₵{{ number_format($related->price, 2) }}</span>
-                            <span class="product-price">₵{{ number_format($related->discounted_price, 2) }}</span>
-                        @else
-                            <span class="product-price">₵{{ number_format($related->price, 2) }}</span>
-                        @endif
+
+                    <div class="card-body px-2 pb-2 pt-1 d-flex flex-column bg-transparent" style="position:relative;">
+                        <h6 class="fw-bold text-dark mb-1 text-truncate" style="font-size: 0.85rem;">
+                            {{ $related->name }}
+                        </h6>
+                        <small class="text-muted d-block text-truncate mb-2" style="font-size: 0.70rem;">{{ $related->category->name ?? '' }}</small>
+                        
+                        <div class="mt-auto d-flex flex-column pt-1">
+                            @if($related->hasActiveDiscount())
+                                <span class="fw-bold" style="color: var(--primary); font-size: 0.95rem;">₵{{ number_format($related->discounted_price, 2) }}</span>
+                                <span class="text-decoration-line-through text-muted" style="font-size: 0.75rem;">₵{{ number_format($related->price, 2) }}</span>
+                            @else
+                                <span class="fw-bold" style="color: var(--primary); font-size: 0.95rem;">₵{{ number_format($related->price, 2) }}</span>
+                            @endif
+                        </div>
                     </div>
                 </div>
             </div>
