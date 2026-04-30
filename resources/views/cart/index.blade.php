@@ -112,7 +112,7 @@
                                 <i class="bi bi-lock me-2"></i>Proceed to Checkout
                             </a>
                         @else
-                            <a href="{{ route('login') }}" class="btn btn-primary-custom w-100 py-3">
+                            <a href="{{ route('login') }}?redirect={{ urlencode(route('checkout.index')) }}" class="btn btn-primary-custom w-100 py-3">
                                 <i class="bi bi-box-arrow-in-right me-2"></i>Login to Checkout
                             </a>
                             <p class="text-center text-muted small mt-2">You need an account to checkout</p>

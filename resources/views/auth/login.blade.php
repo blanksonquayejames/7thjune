@@ -17,7 +17,7 @@
                         <div class="alert alert-success alert-custom small">{{ session('status') }}</div>
                     @endif
 
-                    <form method="POST" action="{{ route('login') }}">
+                    <form method="POST" action="{{ route('login') }}" id="loginForm">
                         @csrf
 
                         <div class="mb-3">
@@ -50,8 +50,11 @@
                             @endif
                         </div>
 
-                        <button type="submit" class="btn btn-primary-custom w-100 py-3 mb-3">
-                            <i class="bi bi-box-arrow-in-right me-2"></i>Log In
+                        <button type="submit" class="btn btn-primary-custom w-100 py-3 mb-3" id="loginBtn">
+                            <span id="loginBtnText"><i class="bi bi-box-arrow-in-right me-2"></i>Log In</span>
+                            <span id="loginBtnSpinner" class="d-none">
+                                <span class="spinner-border spinner-border-sm me-2" role="status"></span>Signing in...
+                            </span>
                         </button>
                     </form>
 
@@ -66,4 +69,17 @@
         </div>
     </div>
 </div>
+
+@push('scripts')
+<script>
+    document.getElementById('loginForm')?.addEventListener('submit', function() {
+        const btn = document.getElementById('loginBtn');
+        const text = document.getElementById('loginBtnText');
+        const spinner = document.getElementById('loginBtnSpinner');
+        btn.disabled = true;
+        text.classList.add('d-none');
+        spinner.classList.remove('d-none');
+    });
+</script>
+@endpush
 @endsection

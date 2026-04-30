@@ -29,6 +29,9 @@ class AuthenticatedSessionController extends Controller
         // Capture guest session ID BEFORE authentication (session regenerates after login)
         $guestSessionId = session()->getId();
 
+        // Store redirect URL before session regeneration
+        $redirectUrl = $request->query('redirect');
+
         $request->authenticate();
 
         $request->session()->regenerate();
@@ -38,6 +41,11 @@ class AuthenticatedSessionController extends Controller
 
         // Merge guest cart into the logged-in user's cart
         $this->mergeGuestCart($guestSessionId, Auth::id());
+
+        // If a redirect URL was provided (e.g. from cart checkout), use it
+        if ($redirectUrl) {
+            return redirect($redirectUrl);
+        }
 
         return redirect()->intended(route('home', absolute: false));
     }

@@ -104,23 +104,23 @@
 
             @if($product->stock > 0)
             <div class="d-flex gap-3 mb-4 align-items-center">
-                <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form">
-                    @csrf
-                    <button type="submit" class="btn btn-add-to-cart text-white btn-lg px-4" {{ $inCart ? 'disabled' : '' }}>
-                        <i class="bi bi-cart-plus me-2"></i>Add to Cart
-                    </button>
-                </form>
+                @if($inCart)
+                    <span class="btn btn-in-cart"><i class="bi bi-check2 me-1"></i>Already in Cart</span>
+                @else
+                    <form action="{{ route('cart.add', $product->id) }}" method="POST" class="ajax-cart-form">
+                        @csrf
+                        <button type="submit" class="btn btn-add-to-cart text-white px-4">
+                            <i class="bi bi-cart-plus me-2"></i>Add to Cart
+                        </button>
+                    </form>
+                @endif
 
                 <form action="{{ route('cart.buyNow', $product->id) }}" method="POST" class="ajax-cart-form">
                     @csrf
-                    <button type="submit" class="btn btn-buy-now text-white btn-lg px-4">
+                    <button type="submit" class="btn btn-buy-now text-white px-4">
                         <i class="bi bi-bag-check me-2"></i>Buy Now
                     </button>
                 </form>
-
-                @if($inCart)
-                    <span class="text-success fw-semibold">Already in cart</span>
-                @endif
             </div>
             @endif
 

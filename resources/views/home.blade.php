@@ -524,7 +524,7 @@
                                                 <button type="submit"
                                                     class="btn rounded-circle shadow-sm d-flex align-items-center justify-content-center add-cart-btn"
                                                     style="width: 28px; height: 28px; padding:0; border: none; background-color: var(--primary); color: white; transition: background 0.2s;">
-                                                    <i class="bi bi-arrow-up-right fw-bold" style="font-size: 0.8rem;"></i>
+                                                    <i class="bi bi-cart-plus fw-bold" style="font-size: 0.8rem;"></i>
                                                 </button>
                                             </form>
                                         @endif
@@ -608,7 +608,7 @@
                                     <button type="submit"
                                         class="btn rounded-circle shadow-sm d-flex align-items-center justify-content-center add-cart-btn"
                                         style="width: 32px; height: 32px; padding:0; border: none; background-color: var(--primary); color: white; transition: background 0.2s;">
-                                        <i class="bi bi-arrow-up-right fw-bold" style="font-size: 0.9rem;"></i>
+                                        <i class="bi bi-cart-plus fw-bold" style="font-size: 0.9rem;"></i>
                                     </button>
                                 </form>
                             @endif
@@ -631,7 +631,7 @@
                             <i class="bi bi-truck"></i>
                         </div>
                         <h6 class="fw-bold">Free Shipping</h6>
-                        <small class="text-muted">On orders over $50</small>
+                        <small class="text-muted">On orders over ₵5000</small>
                     </div>
                 </div>
                 <div class="col-md-3 col-6">

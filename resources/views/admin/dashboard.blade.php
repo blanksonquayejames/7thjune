@@ -47,7 +47,7 @@
         <div class="card stat-card p-4">
             <div class="d-flex align-items-center gap-3">
                 <div class="stat-icon bg-warning bg-opacity-10 text-warning">
-                    <i class="bi bi-currency-dollar"></i>
+                    <span class="currency-text fw-bold">GH₵</span>
                 </div>
                 <div>
                     <div class="stat-value">₵{{ number_format($stats['totalRevenue'], 2) }}</div>
