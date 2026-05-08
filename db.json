@@ -1,0 +1,67 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin User",
+      "email": "admin@7thjunecomputers.com",
+      "password": "password",
+      "role": "admin"
+    },
+    {
+      "id": 2,
+      "name": "John Customer",
+      "email": "user@7thjunecomputers.com",
+      "password": "password",
+      "role": "customer"
+    }
+  ],
+  "categories": [
+    { "id": 1, "name": "Computers", "slug": "computers", "image": null },
+    { "id": 2, "name": "Storage & Components", "slug": "storage-components", "image": null },
+    { "id": 3, "name": "Networking", "slug": "networking", "image": null },
+    { "id": 4, "name": "Tablets", "slug": "tablets", "image": null },
+    { "id": 5, "name": "Peripherals", "slug": "peripherals", "image": null }
+  ],
+  "products": [
+    { "id": 1, "category_id": 1, "name": "ProBook 15 Laptop", "slug": "probook-15-laptop", "price": 799.99, "stock": 50, "description": "Reliable 15-inch laptop for daily productivity with 16GB RAM and 512GB SSD.", "image": null, "is_active": true, "is_hot": true, "is_featured": true, "discount_percentage": 10, "discount_start": "2025-01-01", "discount_end": "2027-12-31" },
+    { "id": 2, "category_id": 1, "name": "Gaming Elite Laptop", "slug": "gaming-elite-laptop", "price": 1499.99, "stock": 20, "description": "High-end gaming laptop featuring RTX 4060 graphics, 144Hz display, and RGB keyboard.", "image": null, "is_active": true, "is_hot": true, "is_featured": false, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 3, "category_id": 1, "name": "Office Desktop PC", "slug": "office-desktop-pc", "price": 599.99, "stock": 30, "description": "Compact desktop computer perfect for office tasks, featuring a fast processor and 1TB storage.", "image": null, "is_active": true, "is_hot": false, "is_featured": true, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 4, "category_id": 1, "name": "Creator Workstation", "slug": "creator-workstation", "price": 1999.99, "stock": 15, "description": "Powerful desktop workstation optimized for video editing, 3D rendering, and heavy workloads.", "image": null, "is_active": true, "is_hot": false, "is_featured": false, "discount_percentage": 15, "discount_start": "2025-01-01", "discount_end": "2027-12-31" },
+    { "id": 5, "category_id": 2, "name": "1TB External HDD", "slug": "1tb-external-hdd", "price": 59.99, "stock": 100, "description": "Portable 1TB external hard drive with USB 3.0 interface for fast data transfer.", "image": null, "is_active": true, "is_hot": false, "is_featured": true, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 6, "category_id": 2, "name": "2TB Internal SATA HDD", "slug": "2tb-internal-sata-hdd", "price": 69.99, "stock": 80, "description": "Reliable 3.5-inch 2TB desktop internal hard drive for expanding your storage capacity.", "image": null, "is_active": true, "is_hot": true, "is_featured": false, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 7, "category_id": 2, "name": "4TB Network Attached Storage", "slug": "4tb-network-attached-storage", "price": 199.99, "stock": 25, "description": "Personal cloud storage solution with 4TB capacity for automated backups.", "image": null, "is_active": true, "is_hot": false, "is_featured": true, "discount_percentage": 20, "discount_start": "2025-01-01", "discount_end": "2027-12-31" },
+    { "id": 8, "category_id": 3, "name": "5-Port Gigabit Switch", "slug": "5-port-gigabit-switch", "price": 19.99, "stock": 120, "description": "Unmanaged 5-port gigabit ethernet switch for expanding your home or office network.", "image": null, "is_active": true, "is_hot": false, "is_featured": false, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 9, "category_id": 3, "name": "24-Port Managed Switch", "slug": "24-port-managed-switch", "price": 149.99, "stock": 15, "description": "Rack-mountable 24-port managed switch for enterprise networking needs.", "image": null, "is_active": true, "is_hot": false, "is_featured": true, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 10, "category_id": 3, "name": "Cat6 Ethernet Cable 10ft", "slug": "cat6-ethernet-cable-10ft", "price": 9.99, "stock": 200, "description": "High-quality 10ft Cat6 patch cable for reliable wired network connections.", "image": null, "is_active": true, "is_hot": true, "is_featured": false, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 11, "category_id": 3, "name": "Cat5e Ethernet Cable 50ft", "slug": "cat5e-ethernet-cable-50ft", "price": 14.99, "stock": 150, "description": "Long 50ft Cat5e cable, perfect for connecting devices across large rooms.", "image": null, "is_active": true, "is_hot": false, "is_featured": false, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 12, "category_id": 4, "name": "Kids Tablet 8-inch", "slug": "kids-tablet-8-inch", "price": 89.99, "stock": 60, "description": "Durable 8-inch tablet designed for kids, featuring parental controls and a protective bumper case.", "image": null, "is_active": true, "is_hot": false, "is_featured": false, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 13, "category_id": 4, "name": "Kids Tablet Pro 10-inch", "slug": "kids-tablet-pro-10-inch", "price": 129.99, "stock": 40, "description": "Larger 10-inch kids tablet with an HD display, educational apps, and robust battery life.", "image": null, "is_active": true, "is_hot": false, "is_featured": false, "discount_percentage": 5, "discount_start": "2025-01-01", "discount_end": "2027-12-31" },
+    { "id": 14, "category_id": 5, "name": "Ergonomic Wireless Mouse", "slug": "ergonomic-wireless-mouse", "price": 29.99, "stock": 85, "description": "Comfortable wireless mouse with ergonomic design, adjustable DPI, and long battery life.", "image": null, "is_active": true, "is_hot": true, "is_featured": false, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 15, "category_id": 5, "name": "Mechanical Gaming Keyboard", "slug": "mechanical-gaming-keyboard", "price": 79.99, "stock": 45, "description": "Tactile mechanical keyboard with customizable RGB backlighting and anti-ghosting keys.", "image": null, "is_active": true, "is_hot": false, "is_featured": false, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 16, "category_id": 5, "name": "Wireless Keyboard and Mouse Combo", "slug": "wireless-keyboard-and-mouse-combo", "price": 49.99, "stock": 110, "description": "Sleek wireless keyboard and optical mouse bundle, connecting via a single USB receiver.", "image": null, "is_active": true, "is_hot": false, "is_featured": false, "discount_percentage": 0, "discount_start": null, "discount_end": null },
+    { "id": 17, "category_id": 5, "name": "1080p Webcam", "slug": "1080p-webcam", "price": 39.99, "stock": 70, "description": "High-definition webcam with built-in microphone for clear video calls and streaming.", "image": null, "is_active": true, "is_hot": false, "is_featured": true, "discount_percentage": 0, "discount_start": null, "discount_end": null }
+  ],
+  "reviews": [
+    { "id": 1, "product_id": 1, "user_id": 2, "rating": 5, "comment": "Excellent laptop, great performance for the price!" },
+    { "id": 2, "product_id": 1, "user_id": 2, "rating": 4, "comment": "Good build quality, battery could be better." },
+    { "id": 3, "product_id": 2, "user_id": 2, "rating": 5, "comment": "Beast gaming machine! Runs everything on ultra." },
+    { "id": 4, "product_id": 5, "user_id": 2, "rating": 4, "comment": "Reliable and portable. Good for backups." },
+    { "id": 5, "product_id": 14, "user_id": 2, "rating": 5, "comment": "Very comfortable for long work sessions." }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "user_id": 2,
+      "total": 863.99,
+      "status": "processing",
+      "shipping_address": "123 Main St, Accra, Greater Accra, Ghana",
+      "phone": "+233 20 123 4567",
+      "transaction_reference": "ref_001",
+      "created_at": "2026-04-20T10:30:00Z",
+      "items": [
+        { "product_id": 1, "quantity": 1, "price": 719.99 },
+        { "product_id": 5, "quantity": 2, "price": 59.99 }
+      ]
+    }
+  ]
+}

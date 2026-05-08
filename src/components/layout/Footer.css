@@ -1,0 +1,14 @@
+.footer{background:var(--dark);color:rgba(255,255,255,.7);padding:64px 0 0}
+.footer__grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px}
+.footer__brand{font-weight:800;font-size:1.3rem;color:var(--white);margin-bottom:12px}
+.footer__desc{font-size:.9rem;line-height:1.7;margin-bottom:20px}
+.footer__socials{display:flex;gap:12px}
+.footer__social{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;font-size:1rem;color:rgba(255,255,255,.7);transition:var(--transition-fast)}
+.footer__social:hover{background:var(--primary);color:var(--white);transform:translateY(-2px)}
+.footer__heading{font-weight:700;font-size:.95rem;color:var(--white);margin-bottom:16px}
+.footer__link{display:block;font-size:.88rem;padding:4px 0;color:rgba(255,255,255,.6);transition:var(--transition-fast)}
+.footer__link:hover{color:var(--white);padding-left:4px}
+.footer__text{font-size:.88rem;padding:4px 0}
+.footer__bottom{border-top:1px solid rgba(255,255,255,.1);padding:24px 0;text-align:center;font-size:.82rem;color:rgba(255,255,255,.4)}
+@media(max-width:768px){.footer__grid{grid-template-columns:1fr 1fr;gap:32px}.footer{padding:48px 0 0}}
+@media(max-width:480px){.footer__grid{grid-template-columns:1fr}}
