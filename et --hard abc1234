@@ -1,0 +1,24 @@
+[33m01b4319[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m HEAD@{0}: commit: 1 commit
+[33m8bc23b9[m HEAD@{1}: reset: moving to HEAD~1
+[33me1b5c44[m HEAD@{2}: commit: 1 commit
+[33m8bc23b9[m HEAD@{3}: Branch: renamed refs/heads/main to refs/heads/main
+[33m8bc23b9[m HEAD@{5}: commit: feat: implement core store views including admin dashboard, login, cart, and product pages
+[33md2c0cd2[m HEAD@{6}: commit: 5 commit
+[33m228a9f0[m HEAD@{7}: commit: 5 commit
+[33m1f9c393[m HEAD@{8}: commit: 4 commit
+[33m6234587[m HEAD@{9}: commit: 4 commit
+[33me10609e[m HEAD@{10}: commit: 3 commit
+[33m16741f7[m HEAD@{11}: commit: 2 commit
+[33m2ed98a4[m HEAD@{12}: Branch: renamed refs/heads/main to refs/heads/main
+[33m2ed98a4[m HEAD@{14}: commit: first commit
+[33me1cb0fb[m HEAD@{15}: Branch: renamed refs/heads/main to refs/heads/main
+[33me1cb0fb[m HEAD@{17}: commit: first commit
+[33m19ae0d5[m HEAD@{18}: Branch: renamed refs/heads/main to refs/heads/main
+[33m19ae0d5[m HEAD@{20}: Branch: renamed refs/heads/main to refs/heads/main
+[33m19ae0d5[m HEAD@{22}: commit: first commit
+[33m4d788bb[m HEAD@{23}: Branch: renamed refs/heads/main to refs/heads/main
+[33m4d788bb[m HEAD@{25}: commit: first commit
+[33m4f22681[m HEAD@{26}: Branch: renamed refs/heads/main to refs/heads/main
+[33m4f22681[m HEAD@{28}: Branch: renamed refs/heads/main to refs/heads/main
+[33m4f22681[m HEAD@{30}: commit: 1 commit
+[33m3108d78[m HEAD@{31}: clone: from https://github.com/blanksonquayejames/7th-june.git
