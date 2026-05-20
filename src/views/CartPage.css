@@ -1,0 +1,27 @@
+.cart-layout{display:grid;grid-template-columns:1fr 380px;gap:32px;align-items:start}
+.cart-items{display:flex;flex-direction:column;gap:16px}
+.cart-item{display:flex;align-items:center;gap:16px;background:var(--white);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);padding:16px;transition:var(--transition)}
+.cart-item:hover{box-shadow:var(--shadow)}
+.cart-item__image{width:80px;height:80px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+.cart-item__image img{width:100%;height:100%;object-fit:contain}
+.cart-item__info{flex:1;min-width:0}
+.cart-item__name{font-weight:600;font-size:.95rem;color:var(--dark);display:block;margin-bottom:4px}
+.cart-item__name:hover{color:var(--primary)}
+.cart-item__price{font-size:.85rem;color:var(--gray)}
+.cart-item__qty{display:flex;align-items:center;gap:8px}
+.cart-item__qty-val{font-weight:700;font-size:.95rem;min-width:28px;text-align:center}
+.cart-item__subtotal{font-weight:700;font-size:1rem;color:var(--primary);min-width:80px;text-align:right}
+.cart-item__actions{display:flex;align-items:center;gap:16px;margin-left:auto}
+.cart-summary{background:var(--light-2);border-radius:var(--radius-lg);padding:32px;position:sticky;top:88px}
+.cart-summary__title{font-weight:700;font-size:1.1rem;margin-bottom:20px}
+.cart-summary__row{display:flex;justify-content:space-between;font-size:.95rem;color:var(--dark-3);margin-bottom:12px}
+.cart-summary__row--total{font-weight:800;font-size:1.15rem;color:var(--dark);margin-bottom:0}
+.cart-summary__divider{height:1px;background:var(--gray-lighter);margin:16px 0}
+@media(max-width:768px){
+  .cart-layout{grid-template-columns:1fr}
+  .cart-item{display:grid;grid-template-columns:80px 1fr;gap:16px}
+  .cart-item__image{grid-column:1;grid-row:1}
+  .cart-item__info{grid-column:2;grid-row:1}
+  .cart-item__actions{grid-column:1/span 2;grid-row:2;width:100%;display:flex;justify-content:space-between;align-items:center;border-top:1px solid var(--gray-lighter);padding-top:12px;margin-top:8px;margin-left:0}
+  .cart-item__subtotal{min-width:auto;text-align:center}
+}

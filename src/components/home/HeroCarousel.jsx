@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import './HeroCarousel.css';
 
 const slides = [
@@ -30,7 +30,7 @@ export default function HeroCarousel() {
           Discover the latest electronics, powerful computers, cutting-edge mobiles, security gadgets,
           accessories, and more — all from trusted sellers and at unbeatable prices.
         </p>
-        <Link to="/products" className="btn btn--accent btn--lg btn--pill hero__cta">
+        <Link href="/products" className="btn btn--accent btn--lg btn--pill hero__cta">
           Shop Now
           <span className="hero__cta-arrow">↗</span>
         </Link>

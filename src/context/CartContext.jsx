@@ -1,45 +1,54 @@
+"use client";
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { getDiscountedPrice } from '../utils/helpers';
 
 const CartContext = createContext(null);
 
 export function CartProvider({ children }) {
-  const [items, setItems] = useState(() => {
-    const saved = localStorage.getItem('7jc_cart');
-    return saved ? JSON.parse(saved) : [];
-  });
-  const [toast, setToast] = useState(null);
+  const [items, setItems] = useState([]);
+  const [toasts, setToasts] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem('7jc_cart', JSON.stringify(items));
-  }, [items]);
+    const saved = localStorage.getItem('7jc_cart');
+    if (saved) {
+      try {
+        setItems(JSON.parse(saved));
+      } catch (e) {
+        console.error('Failed to parse cart items', e);
+      }
+    }
+    setIsLoaded(true);
+  }, []);
 
-  const showToast = useCallback((message, type = 'success') => {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 3000);
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem('7jc_cart', JSON.stringify(items));
+    }
+  }, [items, isLoaded]);
+
+  const removeToast = useCallback((id) => {
+    setToasts(prev => prev.filter(t => t.id !== id));
+  }, []);
+
+  const showToast = useCallback((message, type = 'success', duration = 3000) => {
+    const id = Date.now() + Math.random();
+    setToasts(prev => [...prev, { id, message, type, duration }]);
   }, []);
 
   const addItem = useCallback((product) => {
-    setItems(prev => {
-      const existing = prev.find(i => i.product.id === product.id);
-      if (existing) {
-        if (existing.quantity >= product.stock) {
-          showToast('Not enough stock available.', 'error');
-          return prev;
-        }
-        showToast('Cart updated!');
-        return prev.map(i =>
-          i.product.id === product.id ? { ...i, quantity: i.quantity + 1 } : i
-        );
-      }
-      if (product.stock < 1) {
-        showToast('Product is out of stock.', 'error');
-        return prev;
-      }
-      showToast('Product added to cart!');
-      return [...prev, { product, quantity: 1 }];
-    });
-  }, [showToast]);
+    const existing = items.find(i => i.product.id === product.id);
+    if (existing) {
+      showToast('This item is already in your cart.', 'info');
+      return;
+    }
+    if (product.stock < 1) {
+      showToast('Product is out of stock.', 'error');
+      return;
+    }
+    setItems(prev => [...prev, { product, quantity: 1 }]);
+    showToast('Product added to cart!');
+  }, [items, showToast]);
 
   const removeItem = useCallback((productId) => {
     setItems(prev => prev.filter(i => i.product.id !== productId));
@@ -65,7 +74,7 @@ export function CartProvider({ children }) {
   const total = items.reduce((sum, i) => sum + getDiscountedPrice(i.product) * i.quantity, 0);
 
   return (
-    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, clearCart, isInCart, itemCount, total, toast, showToast }}>
+    <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, clearCart, isInCart, itemCount, total, toasts, removeToast, showToast }}>
       {children}
     </CartContext.Provider>
   );

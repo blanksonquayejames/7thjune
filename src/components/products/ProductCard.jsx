@@ -1,23 +1,49 @@
-import { useNavigate } from 'react-router-dom';
-import { BsCartPlus } from 'react-icons/bs';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { BsCartPlus, BsCartCheckFill } from 'react-icons/bs';
 import { useCart } from '../../context/CartContext';
 import { formatPrice, hasActiveDiscount, getDiscountedPrice, getProductBgColor } from '../../utils/helpers';
 
 export default function ProductCard({ product, category }) {
-  const navigate = useNavigate();
-  const { addItem } = useCart();
+  const router = useRouter();
+  const { addItem, isInCart } = useCart();
+  const [isAdding, setIsAdding] = useState(false);
   const bg = getProductBgColor(product.id);
   const discounted = hasActiveDiscount(product);
   const catName = category || product.category?.name || '';
+  const alreadyInCart = isInCart(product.id);
 
-  const handleClick = () => navigate(`/products/${product.slug}`);
-  const handleAddCart = (e) => {
+  const handleClick = () => router.push(`/products/${product.slug}`);
+  const handleCartAction = (e) => {
     e.stopPropagation();
-    addItem(product);
+    if (alreadyInCart) {
+      router.push('/cart');
+    } else {
+      setIsAdding(true);
+      setTimeout(() => {
+        addItem(product);
+        setIsAdding(false);
+      }, 600);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      handleClick();
+    }
   };
 
   return (
-    <div className="card product-card" onClick={handleClick} id={`product-card-${product.id}`}>
+    <div 
+      className="card product-card" 
+      onClick={handleClick} 
+      onKeyDown={handleKeyDown}
+      id={`product-card-${product.id}`}
+      tabIndex="0"
+      role="button"
+      aria-label={`View details for ${product.name}`}
+    >
       <div className="product-card__image-wrap" style={{ backgroundColor: bg }}>
         {product.image ? (
           <img src={product.image} alt={product.name} className="product-card__image" />
@@ -39,8 +65,20 @@ export default function ProductCard({ product, category }) {
         </div>
       </div>
       {product.stock > 0 && (
-        <button className="product-card__cart-btn" onClick={handleAddCart} title="Add to Cart">
-          <BsCartPlus />
+        <button
+          className={`product-card__cart-btn ${alreadyInCart ? 'product-card__cart-btn--in-cart' : ''}`}
+          onClick={handleCartAction}
+          disabled={isAdding}
+          title={alreadyInCart ? 'View in Cart' : 'Add to Cart'}
+          aria-label={alreadyInCart ? `View ${product.name} in cart` : `Add ${product.name} to cart`}
+        >
+          {isAdding ? (
+            <span className="spinner-sm" style={{ width: '16px', height: '16px', borderLeftColor: 'transparent', display: 'inline-block' }} />
+          ) : alreadyInCart ? (
+            <BsCartCheckFill />
+          ) : (
+            <BsCartPlus />
+          )}
         </button>
       )}
     </div>

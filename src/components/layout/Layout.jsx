@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
 import Navbar from './Navbar';
 import Footer from './Footer';
+import ToastContainer from './ToastContainer';
 import { useCart } from '../../context/CartContext';
 
 export default function Layout() {
-  const { toast } = useCart();
+  const { toasts, removeToast } = useCart();
 
   return (
     <div className="app-layout">
@@ -13,11 +14,7 @@ export default function Layout() {
         <Outlet />
       </main>
       <Footer />
-      {toast && (
-        <div className={`toast toast--${toast.type}`} id="toast-notification">
-          {toast.message}
-        </div>
-      )}
+      <ToastContainer toasts={toasts} removeToast={removeToast} />
     </div>
   );
 }
